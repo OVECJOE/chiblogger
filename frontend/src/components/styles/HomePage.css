@@ -1,0 +1,277 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@400;500;600;700&family=Edu+VIC+WA+NT+Beginner:wght@400;600;700&family=Mochiy+Pop+P+One&family=Oswald:wght@400;500;600;700&family=Roboto+Condensed:wght@400;700&display=swap');
+
+.App__home {
+    padding: 1.5rem;
+    max-width: 1440px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.App__home .hero-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.hero-section .left-card {
+    padding: 0 1.2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+}
+
+.left-card .title {
+    color: #e61b48;
+    font-family: 'Mochiy Pop P One', sans-serif;
+    font-size: calc(15px + 2vmin);
+}
+
+.left-card .content {
+    font-size: .8rem;
+    width: 90%;
+}
+
+.hero-section .right-card {
+    display: flex;
+    justify-content: space-between;
+    gap: .6rem;
+}
+
+.right-card article>img {
+    min-height: 5rem;
+}
+
+.right-card article {
+    width: 25%;
+    position: relative;
+}
+
+.right-card article>img {
+    width: 100%;
+    height: 100%;
+    border-radius: 2px;
+}
+
+.right-card article>p {
+    position: absolute;
+    bottom: 1%;
+    color: #fff;
+    font-size: .8rem;
+    font-family: 'Roboto Condensed', sans-serif;
+    text-align: center;
+    width: 95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 .2rem;
+    background-color: rgba(28, 15, 15, 0.281);
+}
+
+.posts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+    margin: 2rem 0;
+    width: 100%;
+}
+
+.left-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.left-container .category-types {
+    display: flex;
+    gap: .8rem;
+    list-style: none;
+    font-family: 'Mochiy Pop P One', sans-serif;
+    color: rgba(34, 34, 34, 0.657);
+}
+
+.category-types .active {
+    color: #e61b48;
+    padding: 0 0 .4rem;
+    border-bottom: 2px solid #e61b48;
+}
+
+.articles-container {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+}
+
+.articles-container .post-card {
+    display: flex;
+    gap: .5rem;
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+    align-items: center;
+}
+
+.post-card img {
+    width: 100px;
+    height: 60px;
+}
+
+.post-card .post-info {
+    display: flex;
+    flex-direction: column;
+    gap: .1rem;
+    font-family: 'Cormorant SC', serif;
+}
+
+.post-card .post-info .timestamp {
+    font-size: .6rem;
+    opacity: .6;
+}
+
+.post-card .post-info .headline {
+    font-size: .7rem;
+    color: #503245;
+    font-family: 'Mochiy Pop P One', sans-serif;
+}
+
+.post-card .post-info .author {
+    font-size: .8rem;
+    color: #e61b48;
+    font-weight: bolder;
+}
+
+.right-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.right-container .featured-post-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 .3rem;
+}
+
+.featured-post-info .left {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    font-family: 'Oswald', sans-serif;
+}
+
+.featured-post-info .left > img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.featured-post-info .left > p {
+    font-size: .7rem;
+    color: #503245a2;
+}
+
+.featured-post-info .left > p .author {
+    color: #e61b48;
+    font-weight: bolder;
+}
+
+.featured-post-info .left .timestamp {
+    color: #503245;
+    opacity: .7;
+    font-size: .7rem;
+}
+
+.featured-post-info .share-btn {
+    padding: .4rem 1rem;
+    background-color: #e61b48;
+    color: #fff;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.featured-post-info .share-btn:hover {
+    background-color: #b7072d;
+    transition: all 300ms ease;
+}
+
+.right-container .post-title {
+    font-size: 1rem;
+    color: #503245;
+    text-align: center;
+}
+
+.right-container .view-more {
+    padding: .4rem 2rem;
+    align-self: center;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-family: 'Oswald', sans-serif;
+    color: #fff;
+    background-color: #e61b48;
+    font-weight: 700;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@media (min-width: 700px) {
+    .App__home {
+        padding: 1.5rem 2.5rem;
+    }
+
+    .App__home .hero-section {
+        flex-direction: row;
+        gap: 2rem;
+        justify-content: space-between;
+    }
+
+    .hero-section .left-card {
+        width: 30%;
+        text-align: left;
+    }
+
+    .hero-section .right-card {
+        width: 70%;
+    }
+
+    .right-card article>img {
+        min-height: 6rem;
+    }
+
+    .posts-container {
+        flex-direction: row;
+        justify-content: space-between;
+        position: relative;
+        gap: .5rem;
+    }
+
+    .posts-container .left-container {
+        border-left: 2px solid #e61b48;
+        width: 40%;
+        padding: 0 0 2rem .8rem;
+        position: relative;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-card img {
+        width: 40%;
+        height: 60px;
+    }
+
+    .right-container {
+        width: 50%;
+        padding: 0 .8rem 2rem 0;
+        border-right: 2px solid #e61b48;
+    }
+
+    .right-container .post-title {
+        text-align: left;
+    }
+}

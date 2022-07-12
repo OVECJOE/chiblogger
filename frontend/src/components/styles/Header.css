@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Beginner:wght@400;600;700&family=Roboto+Condensed:wght@400;700&display=swap');
+
+.App__header {
+    display: flex;
+    justify-content: space-around;
+    gap: 0.5rem;
+    padding: 1rem 0;
+}
+
+.App__header-logo {
+    color: #e61b48;
+    font-size: calc(15px + 2vmin);
+    font-family: 'Edu VIC WA NT Beginner', cursive;
+    text-decoration: underline #503245 5px;
+}
+
+.App__header-navbar,
+#hamburger {
+    display: none;
+}
+
+.hamburger {
+    font-size: calc(15px + 2vmin);
+    color: #e61b48;
+    display: flex;
+    gap: .1rem;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 700;
+    position: relative;
+}
+
+#hamburger:checked ~ .App__header-navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 1.5rem;
+    background-color: #e61b48;
+    gap: .5rem;
+    position: fixed;
+    /* top: 6%; */
+    left: 8%;
+    right: 18%;
+    border-radius: 30px 0 30px 30px;
+    list-style: none;
+    animation: navMenu infinite ease 0s 1 linear;
+    z-index: 100;
+    margin-top: .2rem;
+}
+
+@keyframes navMenu {
+    from {
+        left: 0;
+        right: 100%;
+        transform: scale(.5) translateX(0%);
+    }
+
+    to {
+        left: 15%;
+        right: 18%;
+        transform: scale(1) translateX(100%);
+    }
+}
+
+#hamburger:checked ~ .App__header-navbar > li {
+    width: 100%;
+    text-align: center;
+    border-bottom: 2px solid #fff;
+    padding-bottom: .5rem;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+#hamburger:checked ~ .App__header-navbar > li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+#hamburger:checked ~ .App__header-navbar > .auth-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    align-items: center;
+    justify-content: center;
+}
+
+#hamburger:checked ~ .App__header-navbar > .auth-btns > button {
+    padding: .4rem 1rem;
+    border: 1px solid #fff;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 3px;
+    background-color: #503245;
+    transition: all 300ms ease;
+}
+
+#hamburger:checked ~ .App__header-navbar > .auth-btns > button:hover {
+    background-color: #fff;
+    color: #e61b48;
+    border-radius: 0;
+    transition: all 300ms ease;
+    font-weight: 600;
+}
+
+#hamburger:checked ~ .App__header-navbar .active {
+    background-color: #fff;
+    color: #e61b48;
+    padding: .2rem .5rem;
+}
+
+@media (min-width: 700px) {
+    .App__header {
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2.5rem;
+    }
+
+    #hamburger, .hamburger {
+        display: none;
+    }
+
+    .App__header-navbar {
+        display: flex;
+        gap: 1.8rem;
+        justify-content: space-between;
+        align-items: center;
+        list-style: none;
+    }
+
+    .App__header-navbar>li {
+        font-family: 'Roboto Condensed', sans-serif;
+        font-weight: 700;
+    }
+
+    .App__header-navbar a {
+        padding: .2rem .3rem;
+        color: #503245;
+        text-decoration: none;
+    }
+
+    .App__header-navbar .active {
+        background-color: #e61b48;
+        color: #fff;
+        text-transform: uppercase;
+        border: .5px outset #503245;
+    }
+
+    .App__header-navbar>.auth-btns {
+        display: flex;
+        gap: .6rem;
+    }
+
+    .signup-btn,
+    .login-btn {
+        padding: .4rem 1rem;
+        border: 1px solid #e61b48;
+        border-radius: 5px;
+        font-weight: bolder;
+        cursor: pointer;
+        transition: all 500ms ease-out;
+    }
+
+    .signup-btn:hover,
+    .login-btn:hover {
+        transition: all 500ms ease-in;
+        border-radius: 0;
+    }
+
+    .login-btn {
+        background-color: #e61b48;
+        color: #fff;
+    }
+
+    .signup-btn {
+        background-color: #fff;
+        color: #e61b48;
+    }
+}
+
+@media (min-width: 900px) {
+    .App__header {
+        justify-content: space-around;
+    }
+}
