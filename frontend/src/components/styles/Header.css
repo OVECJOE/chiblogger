@@ -113,6 +113,11 @@
         justify-content: space-between;
         align-items: center;
         padding: 1rem 2.5rem;
+        position: -webkit-sticky;
+        position: sticky;
+        background-color: #ffffff;
+        z-index: 200;
+        top: 0;
     }
 
     #hamburger, .hamburger {
