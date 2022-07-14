@@ -10,7 +10,7 @@ router.post('/register', authController.register);
 // login user endpoint
 router.post('/login', authController.login);
 // logout user endpoint
-router.post('/logout', authController.logout);
+router.get('/logout', authController.logout);
 // get user endpoint
 router.get('/:username', requireAuth, userController.get_user);
 router.get('/users', requireAuth, userController.get_users);

@@ -52,5 +52,8 @@ exports.logout = (req, res) => {
         httpOnly: true,
         maxAge: 1
     });
-    res.redirect('/');
+    res.send({
+        success: 200,
+        message: 'Logout Successful'
+    });
 };

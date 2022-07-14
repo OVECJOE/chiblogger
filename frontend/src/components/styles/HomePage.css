@@ -84,6 +84,13 @@
     gap: 1rem;
     max-height: 400px;
     overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 10;
 }
 
 .left-container .category-types {
@@ -94,7 +101,7 @@
     color: rgba(34, 34, 34, 0.657);
     position: -webkit-sticky;
     position: sticky;
-    top: 0;
+    left: 0;
     z-index: 10;
     background-color: #fff;
 }
@@ -107,7 +114,6 @@
 
 .articles-container {
     display: flex;
-    flex-direction: column;
     gap: .6rem;
 }
 
@@ -116,6 +122,7 @@
     gap: .5rem;
     position: relative;
     width: 100%;
+    flex-shrink: 0;
     cursor: pointer;
     align-items: center;
 }
@@ -236,6 +243,7 @@
         flex-direction: row;
         gap: 2rem;
         justify-content: space-between;
+        margin: 2rem 0;
     }
 
     .hero-section .left-card {
@@ -261,9 +269,17 @@
         border-left: 2px solid #e61b48;
         width: 40%;
         padding: 0 0 2rem .8rem;
-        position: -webkit-sticky;
-        position: sticky;
         top: 0;
+        -ms-overflow-style: unset;
+        scrollbar-width: unset;
+    }
+
+    .left-container .category-types {
+        top: 0;
+    }
+
+    .articles-container {
+        flex-direction: column;
     }
 
     .post-card img {

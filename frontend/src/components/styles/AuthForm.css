@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@400;500;600;700&family=Edu+VIC+WA+NT+Beginner:wght@400;600;700&family=Mochiy+Pop+P+One&family=Oswald:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+.auth-form-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #190308e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.auth-form-container > .cancel-btn {
+    position: absolute;
+    top: .5%;
+    right: .5%;
+    font-size: 2.5rem;
+    color: #fff;
+    cursor: pointer;
+    transition: all 400ms ease;
+}
+
+.auth-form-container .cancel-btn:hover {
+    color: #e61b47;
+    transition: all 400ms ease;
+}
+
+.auth-form-container .auth-form {
+    background-color: #fff;
+    padding: 1.2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.2rem;
+    width: 80%;
+    border-radius: 10px;  
+    font-family: 'Poppins', sans-serif;
+}
+
+.auth-form .form-item {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+}
+
+.auth-form .form-item label {
+    color: #e61b47;
+    font-size: .9rem;
+    font-weight: 400;
+}
+
+.auth-form h1 {
+    font-size: calc(15px + 2vmin);
+    color: #e61b47;
+}
+
+.auth-form button {
+    padding: .5rem;
+    font-size: .9rem;
+    border: none;
+    color: #fff;
+    background-color: #e61b47;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 300ms ease-out;
+}
+
+.auth-form button:hover {
+    background-color: #80021e;
+    transition: all 300ms ease-in;
+}
+
+.auth-form .form-item input {
+    padding: .5rem;
+}
+
+.error-list {
+    position: absolute;
+    top: 1%;
+    left: 1%;
+    right: 20%;
+    padding: .8rem 1.2rem;
+    border-radius: 2px;
+    list-style: none;
+    background-color: #fff;
+    color: #80021e;
+    font-size: .8rem;
+    font-weight: 600;
+
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+}
+
+.error-list > .cancel-btn {
+    color: #80021e;
+    font-size: 1.1rem;
+    position: absolute;
+    right: .5%;
+    top: 30%;
+    bottom: 30%;
+    cursor: pointer;
+    transition: all 300ms ease-out;
+}
+
+.error-list > li::before {
+    content: '😠';
+    margin-right: .2rem;
+}
+
+@media (min-width: 700px) {
+    .auth-form-container .auth-form {
+        width: 400px;
+        padding: 3rem 2.5rem;
+    }
+}

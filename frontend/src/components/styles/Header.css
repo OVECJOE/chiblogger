@@ -5,6 +5,18 @@
     justify-content: space-around;
     gap: 0.5rem;
     padding: 1rem 0;
+    position: relative;
+}
+
+.App__header .logout-msg {
+    position: absolute;
+    background-color: #e61b48;
+    color: #fff;
+    font-family: 'Edu VIC WA NT Beginner', cursive;
+    z-index: 100;
+    padding: .4rem .7rem;
+    left: .5%;
+    top: 5%;
 }
 
 .App__header-logo {
@@ -76,7 +88,8 @@
     text-decoration: none;
 }
 
-#hamburger:checked ~ .App__header-navbar > .auth-btns {
+#hamburger:checked ~ .App__header-navbar > .auth-btns,
+#hamburger:checked ~ .App__header-navbar > .user-btns {
     display: flex;
     flex-wrap: wrap;
     gap: .5rem;
@@ -84,7 +97,8 @@
     justify-content: center;
 }
 
-#hamburger:checked ~ .App__header-navbar > .auth-btns > button {
+#hamburger:checked ~ .App__header-navbar > .auth-btns > button,
+#hamburger:checked ~ .App__header-navbar > .user-btns > button {
     padding: .4rem 1rem;
     border: 1px solid #fff;
     color: #fff;
@@ -94,7 +108,8 @@
     transition: all 300ms ease;
 }
 
-#hamburger:checked ~ .App__header-navbar > .auth-btns > button:hover {
+#hamburger:checked ~ .App__header-navbar > .auth-btns > button:hover,
+#hamburger:checked ~ .App__header-navbar > .user-btns > button:hover {
     background-color: #fff;
     color: #e61b48;
     border-radius: 0;
@@ -106,6 +121,32 @@
     background-color: #fff;
     color: #e61b48;
     padding: .2rem .5rem;
+}
+
+.user-btns > button {
+    padding: .3rem .5rem;
+    border: none;
+    background-color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+   transition: all 300ms ease-out;
+}
+
+.user-btns > .logout-btn {
+    color: #e61b48;
+}
+
+.user-btns > .dashboard-btn {
+    border: 1px solid #e61b48;
+    background-color: #fff;
+    color: #e61b48;
+}
+
+.user-btns > button:hover {
+   color: #fff;
+   background-color: #1c0208;
+   border: 1px solid #503245;
+   transition: all 300ms ease-in;
 }
 
 @media (min-width: 700px) {
@@ -150,7 +191,8 @@
         border: .5px outset #503245;
     }
 
-    .App__header-navbar>.auth-btns {
+    .App__header-navbar>.auth-btns,
+    .App__header-navbar>.user-btns {
         display: flex;
         gap: .6rem;
     }

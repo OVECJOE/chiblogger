@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    position: relative;
+}
+
+.dashboard .nav-section {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: inset 1px 0px 2px 2px #5b1601;
+    padding: .6rem .4rem;
+    background-color: #e61b48;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    gap: .5rem;
+    font-size: calc(4px + 2vmin);
+}
+
+.nav-section > div {
+    text-align: center;
+    position: relative;
+}
+
+.nav-section div a {
+    color: rgb(253, 218, 218);
+    text-decoration: none;
+}
+
+.nav-section > div .line-stroke {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    transition: all 500ms ease;
+}
+
+.nav-section div:hover .line-stroke {
+    width: 0%;
+    background-color: #fff;
+    transition: all 500ms ease;
+    border-radius: 50%;
+}
+
+.nav-section div .active {
+    color: #fff;
+}
