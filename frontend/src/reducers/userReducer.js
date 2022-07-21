@@ -7,6 +7,16 @@ export const userReducer = (state, action) => {
             return state;
         case 'REMOVE_USER':
             return {};
+        case 'UPDATE_PROPERTY':
+            return {
+                ...state,
+                [action.key]: action.value
+            };
+        case 'UPDATE_PHOTO':
+            return {
+                ...state,
+                photo: action.photoUrl
+            };
         default:
             return state;
     }

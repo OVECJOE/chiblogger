@@ -15,6 +15,10 @@ const handleErrors = (err) => {
         password: ''
     };
 
+    // password length < 8
+    if (typeof err === 'string') {
+        errors.password = err;
+    }
     // incorrect username
     if (err.message === 'Incorrect Username') {
         errors.username = 'This username is not registered';
@@ -32,7 +36,7 @@ const handleErrors = (err) => {
     }
 
     // validation errors
-    if (err.message.includes('User validation failed')) {
+    if (err.message && err.message.includes('User validation failed')) {
         Object.values(err.errors).forEach(({ properties }) => {
             errors[properties.path] = properties.message;
         });
@@ -43,5 +47,5 @@ const handleErrors = (err) => {
 
 module.exports = {
     createToken,
-    handleErrors
+    handleErrors,
 };

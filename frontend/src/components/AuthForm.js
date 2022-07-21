@@ -1,19 +1,19 @@
-import { useContext, useState } from 'react';
-import { MdCancel, MdOutlineCancelPresentation } from 'react-icons/md';
+import { useContext } from 'react';
+import { MdOutlineCancelPresentation } from 'react-icons/md';
 import axios from 'axios';
-import { v4 as uuid } from 'uuid';
 
 import './styles/AuthForm.css';
 import { AuthContext } from '../contexts/authContext';
 import { UserContext } from '../contexts/userContext';
+import { ProjectContext } from '../contexts/projectContext';
+import { updateProperty, erroneous } from '../utils';
 
 const AuthForm = ({ signup, setState }) => {
     const API_URL = process.env.REACT_APP_API_URL;
 
     const { authData, authDispatcher } = useContext(AuthContext);
     const { userDispatcher } = useContext(UserContext);
-
-    const [error, setError] = useState({});
+    const { projectDispatcher } = useContext(ProjectContext);
 
     const falsifyReady = () => setState(state => ({
         ...state,
@@ -21,13 +21,7 @@ const AuthForm = ({ signup, setState }) => {
     }));
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-
-        authDispatcher({
-            type: 'UPDATE_PROPERTY',
-            key: name,
-            value
-        });
+        updateProperty(e, authDispatcher);
     };
 
     const submitData = (e) => {
@@ -47,10 +41,14 @@ const AuthForm = ({ signup, setState }) => {
             falsifyReady();
         })
         .catch(err => {
-            const { errors } = err.response.data;
-            setError(errors);
+            erroneous(err, projectDispatcher);
+
+            setTimeout(() => {
+                projectDispatcher({
+                    type: 'REMOVE_ERROR'
+                });
+            }, 4000);
         });
-        
     };
 
     return (
@@ -59,16 +57,6 @@ const AuthForm = ({ signup, setState }) => {
                 onClick={falsifyReady}>
                 <MdOutlineCancelPresentation />
             </div>
-            {Object.keys(error).length && <ul className='error-list'>
-                <div className='cancel-btn'
-                    onClick={() => setError({})}
-                >
-                    <MdCancel />
-                </div>
-                {Object.values(error).filter(value => value !== '')
-                    .map(value => <li key={uuid()}>{value}</li>)
-                }
-            </ul>}
             <form className="auth-form" onSubmit={submitData}>
                 <h1>{signup ? 'Signup' : 'Login'} Form</h1>
                 <div className='form-item'>

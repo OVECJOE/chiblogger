@@ -1,14 +1,19 @@
 import { useState, useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { FaHamburger } from 'react-icons/fa';
 import axios from 'axios';
 
 import './styles/Header.css';
 import AuthForm from './AuthForm';
 import { UserContext } from '../contexts/userContext';
+import { ProjectContext } from '../contexts/projectContext';
+import ErrorCard from './ErrorCard';
+import { erroneous } from '../utils';
 
 const Header = () => {
     const { userData, userDispatcher } = useContext(UserContext);
+    const { projectData, projectDispatcher } = useContext(ProjectContext);
+    const navigate = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL;
 
     const [state, setState] = useState({
@@ -33,8 +38,9 @@ const Header = () => {
                 ...prev,
                 logoutMessage: res.data.message
             }));
+            navigate('/', { replace: true });
         }).catch(err => {
-            console.log(err);
+            erroneous(err, projectDispatcher);
         });
     };
 
@@ -47,6 +53,10 @@ const Header = () => {
                     logoutMessage: ''
                 })), 3000) && ''}
             </div>}
+            {typeof projectData.error === 'object' && 
+                Object.values(projectData.error).length !== 0 &&
+                <ErrorCard />
+            }
             <h3 className='App__header-logo'>
                 CHI-Blogger
             </h3>

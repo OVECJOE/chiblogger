@@ -12,11 +12,17 @@ const post = new Schema({
     },
     creator: { type: ObjectId, ref: 'User' },
     content: { type: String, required: true, trim: true },
+    slug: {
+        type: String,
+        required: true,
+        trim: true,
+        unique: true
+    },
     categories: [
         { type: ObjectId, ref: 'Category' }
     ],
     selectedFiles: [
-        { data: Buffer, contentType: String }
+        { type: String, unique: true, trim: true }
     ],
     likes: { type: Number, default: 0 },
     published: { type: Boolean, default: false },

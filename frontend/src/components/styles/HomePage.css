@@ -90,7 +90,7 @@
     position: sticky;
     top: 0;
     background-color: #fff;
-    z-index: 10;
+    z-index: 5;
 }
 
 .left-container .category-types {
@@ -270,8 +270,8 @@
         width: 40%;
         padding: 0 0 2rem .8rem;
         top: 0;
-        -ms-overflow-style: unset;
         scrollbar-width: unset;
+        -ms-overflow-style: unset;
     }
 
     .left-container .category-types {

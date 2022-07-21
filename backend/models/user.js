@@ -31,7 +31,7 @@ const user = new Schema({
     isAdmin: { type: Boolean, default: false },
     isPremium: { type: Boolean, default: false },
     bio: { type: String, maxLength: 2000, trim: true },
-    photo: { data: Buffer, contentType: String }
+    photo: { type: String, default: '', trim: true }
 }, {
     timestamps: { createdAt: 'subscribedOn' },
 });

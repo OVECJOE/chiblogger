@@ -1,4 +1,7 @@
+const bcrypt = require('bcryptjs');
+
 const User = require('../models/user');
+const { handleErrors } = require('../utils');
 
 exports.get_user = async (req, res) => {
     const { username } = req.params;
@@ -9,7 +12,7 @@ exports.get_user = async (req, res) => {
         res.send(user);
     } else {
         res.status(404).send(
-            {error: 'Could not find user'}
+            { error: 'Could not find user' }
         );
     }
 };
@@ -21,7 +24,62 @@ exports.get_users = async (req, res) => {
         res.send(users);
     } else {
         res.status(404).send(
-            {error: 'Could not get users'}
+            { error: 'Could not get users' }
         );
+    }
+};
+
+exports.update_admin_info = async (req, res) => {
+    const { adminId, username, email, password } = req.body;
+    let userFields = {};
+
+    if (username) {
+        userFields.username = username;
+    }
+
+    if (email) {
+        userFields.email = email;
+    }
+
+    try {
+        if (password) {
+            if (password.length >= 8) {
+                const salt = await bcrypt.genSalt();
+                const encryptedPassword = await bcrypt.hash(password, salt);
+                userFields.password = encryptedPassword;
+            } else {
+                const errors = handleErrors('Password must be at least 8 characters long.');
+                return res.status(400).send({ errors });
+            }
+        }
+
+        const admin = await User.findOneAndUpdate({ _id: adminId, isAdmin: true },
+            userFields, { new: true }
+        );
+
+        res.send(admin);
+    } catch (error) {
+        const errors = handleErrors(error);
+        res.status(400).send({ errors });
+    }
+};
+
+exports.update_admin_photo = async (req, res) => {
+    const { adminId, photo } = req.body;
+
+    try {
+        const admin = await User.findOneAndUpdate({ _id: adminId, isAdmin: true },
+            { photo: photo }, { new: true }
+        );
+
+        if (admin) {
+            res.send(admin);
+        } else {
+            const errors = handleErrors('Admin with given user id not found');
+            res.status(404).send({ errors });
+        }
+    } catch (error) {
+        const errors = handleErrors(error);
+        res.status(400).send({ errors });
     }
 };

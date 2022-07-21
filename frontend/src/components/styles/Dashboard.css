@@ -49,3 +49,12 @@
 .nav-section div .active {
     color: #fff;
 }
+
+@media (max-width: 699px) {
+    .nav-section {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+}

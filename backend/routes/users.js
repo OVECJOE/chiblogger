@@ -13,6 +13,11 @@ router.post('/login', authController.login);
 router.get('/logout', authController.logout);
 // get user endpoint
 router.get('/:username', requireAuth, userController.get_user);
+// get all users endpoint
 router.get('/users', requireAuth, userController.get_users);
+// update admin info
+router.post('/update-admin', requireAuth, userController.update_admin_info);
+// upload admin photo
+router.post('/upload-photo', requireAuth, userController.update_admin_photo);
 
 module.exports = router;

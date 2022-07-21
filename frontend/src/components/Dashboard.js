@@ -1,18 +1,8 @@
-import { Link as NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
+import { Link as NavLink, Outlet } from 'react-router-dom';
 
 import './styles/Dashboard.css';
-import { UserContext } from '../contexts/userContext';
 
 const Dashboard = () => {
-    const { userData } = useContext(UserContext);
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        !userData.isAdmin && navigate('/', { replace: true });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userData.isAdmin]);
-    
     return (
         <main className='dashboard'>
             <section className='nav-section'>

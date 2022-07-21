@@ -10,13 +10,24 @@
     position: relative;
 }
 
-.profile-pic img {
+.profile-pic img,
+.profile-pic .no-photo {
     width: calc(8rem + 2vmin);
+    height: calc(8rem + 2vmin);
     border-radius: 50%;
     border: 5px solid #503245;
 }
 
-.profile-pic > svg {
+.no-photo {
+    height: calc(8rem + 2vmin);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(4rem + 2vmin);
+    color: #8b0421;
+}
+
+.profile-pic>svg {
     font-size: calc(1rem + 2vmin);
     position: absolute;
     right: -8%;
@@ -35,13 +46,13 @@
     justify-content: center;
 }
 
-.profile-info > div {
+.profile-info>div {
     display: flex;
     flex-direction: column;
     gap: .4rem;
 }
 
-.profile-info > div > .edit-box {
+.profile-info>div>.edit-box {
     display: flex;
     gap: .3rem;
     align-items: center;
@@ -61,7 +72,18 @@ div input {
     border-radius: 5px;
 }
 
-div > .edit-box > svg {
+.profile-info>.input-edit {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    font-size: calc(1.2rem + 1.2vmin);
+    font-weight: 700;
+    color: #e61b48;
+    justify-content: space-between;
+    border-bottom: 2px solid #503245;
+}
+
+.profile-info svg {
     font-size: calc(1.5rem + 1.5vmin);
     color: #e61b48;
     cursor: pointer;
@@ -74,7 +96,7 @@ div > .edit-box > svg {
     border-radius: 2px;
 }
 
-.profile-section > button {
+.profile-section>button {
     padding: .8rem;
     border: none;
     background-color: #e61b48;
@@ -86,7 +108,84 @@ div > .edit-box > svg {
     transition: all 200ms ease-in;
 }
 
-.profile-section > button:hover {
+.profile-section>button:hover {
     background-color: #8b0421;
     transition: all 200ms ease-in;
+}
+
+.pass-edit {
+    border: 1px solid #503245;
+    padding: 1.2rem;
+    border-radius: 10px;
+    position: relative;
+}
+
+.disable-pass-edit {
+    display: none;
+}
+
+.disable-pass-edit svg {
+    background-color: #fff;
+    color: #e61b48;
+    padding: .2rem .5rem;
+    border-radius: 10px;
+}
+
+.select-photo-card {
+    position: fixed;
+    display: flex;
+    top: 35%;
+    bottom: 35%;
+    left: 1%;
+    right: 1%;
+    flex-direction: column;
+    justify-content: center;
+    gap: .5rem;
+    align-items: center;
+    z-index: 10;
+    background-color: #e891a4;
+    color: #8b0421;
+    font-weight: 700;
+    font-size: calc(.9rem + 2vmin);
+    padding: 0rem 1rem;
+    border-radius: 3px;
+}
+
+.select-photo-card > input {
+    padding: .7rem;
+    border: 0;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: calc(.7rem + 2vmin);
+}
+
+.select-photo-card > button {
+    padding: .3rem .8rem;
+    font-size: calc(.6rem + 2vmin);
+    background-color: #8b0421;
+    border: 0;
+    border-radius: 2px;
+    color: #fff;
+    cursor: pointer;
+}
+
+@media (min-width: 700px) {    
+    .pass-edit:hover>.disable-pass-edit {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #e61b4792;
+        border-radius: 10px;
+    }
+
+    .select-photo-card {
+        left: 15%;
+        right: 15%;
+        padding: 0rem 3rem;
+    }
 }
