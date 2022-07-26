@@ -11,15 +11,14 @@ const requireAuth = (req, res, next) => {
             (err) => {
                 if (err) {
                     errors = handleErrors(err);
-                    res.status(400).send({ errors });
+                    res.status(400).send(errors);
                 } else {
                     next();
                 }
         });
     } else {
-        res.status(400).send({
-            errors: {message: 'Could not verify user identity, login.'}
-        });
+        errors = handleErrors('Could not verify user identity, login.');
+        res.status(400).send(errors);
     }
 };
 

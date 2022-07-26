@@ -16,6 +16,10 @@
     color: #135e0b;
 }
 
+.article-metadata label {
+    font-size: calc(.5rem + 1.6vmin);
+}
+
 .article-metadata > h1 {
     font-family: 'Edu VIC WA NT Beginner', cursive;
     color: #e61b48;
@@ -53,6 +57,16 @@
     transition: all 400ms ease;
 }
 
+.article-metadata .article-premium {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.article-premium .premium-read {
+    display: flex;
+}
+
 .article-metadata > h1 {
     text-transform: uppercase;
     font-size: calc(1.5rem + 1vmin);
@@ -63,11 +77,16 @@
     text-transform: uppercase;
 }
 
-.article-metadata .tooltip {
+.article-metadata .tooltip,
+.article-body .tooltip {
     color: #e61b48;
     font-size: calc(.5rem + .8vmin);
     font-weight: 400;
     font-style: italic;
+}
+
+.article-body .tooltip {
+    text-align: center;
 }
 
 .new-article-container .article-body {
@@ -75,6 +94,9 @@
     flex-direction: column;
     gap: .6rem;
     padding: 0 1rem;
+    border: 2px solid #a18705;
+    padding: .5rem .1rem;
+    border-radius: 3px;
 }
 
 .article-body > h3 {
@@ -83,6 +105,19 @@
     color: #135e0b;
     text-align: center;
     font-weight: 800;
+}
+
+.autosave-button {
+    text-decoration: underline 2px #135e0b;
+    cursor: pointer;
+    font-weight: 900;
+    transition: all 800ms ease-in;
+}
+
+.autosave-button:hover {
+    color: #135e0b;
+    text-decoration: underline 2px #e61b48;
+    transition: all 400ms ease-in;
 }
 
 @media (min-width: 1024px) {

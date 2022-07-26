@@ -12,22 +12,25 @@ export const updateProperty = (event, dispatch) => {
 };
 
 export const erroneous = (err, errDispatcher) => {
-    let errors;
+    let errors = [];
 
     if (err && err.response) {
         if (err.response.data) {
-            errors = err.response.data.errors || err.response.data.error;
-        } else {
-            errors = { message: err.message };
+            errors = err.response.data;
+        } else if (err.response.statusText) {
+            errors.push(err.response.statusText);
         }
-        errDispatcher({
-            type: 'SET_ERROR',
-            error: errors
-        });
     }
+    if (err.message && !errors.length)
+        errors.push(err.message);
+
+    errDispatcher({
+        type: 'SET_ERROR',
+        errors: errors
+    });
 };
 
-export const uploadImage = (photo, userDispatcher) => {
+export const uploadImage = (photo, dispatcher) => {
     const data = new FormData();
 
     data.append('file', photo);
@@ -35,11 +38,11 @@ export const uploadImage = (photo, userDispatcher) => {
     data.append('cloud_name', 'chiblogger');
 
     axios.post(UPLOAD_URL, data).then(res => {
-        userDispatcher({
+        dispatcher({
             type: 'UPDATE_PHOTO',
             photoUrl: res.data.url
         });
     }).catch(err => {
-        erroneous(err, userDispatcher);
+        erroneous(err, dispatcher);
     });
 };

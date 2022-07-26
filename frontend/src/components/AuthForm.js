@@ -42,12 +42,6 @@ const AuthForm = ({ signup, setState }) => {
         })
         .catch(err => {
             erroneous(err, projectDispatcher);
-
-            setTimeout(() => {
-                projectDispatcher({
-                    type: 'REMOVE_ERROR'
-                });
-            }, 4000);
         });
     };
 

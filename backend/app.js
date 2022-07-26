@@ -6,6 +6,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
 const usersRouter = require('./routes/users');
+const postsRouter = require('./routes/posts');
 
 const app = express();
 app.use(cors({
@@ -18,6 +19,7 @@ app.use(cookieParser());
 
 // Defining routes
 app.use('/', usersRouter);
+app.use('/articles', postsRouter);
 
 app.get('*', (req, res) => {
     res.status(404).send({

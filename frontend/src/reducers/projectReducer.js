@@ -8,12 +8,17 @@ const projectReducer = (state, action) => {
         case 'SET_ERROR':
             return {
                 ...state,
-                error: action.error
+                errors: action.errors
             };
         case 'REMOVE_ERROR':
             return {
                 ...state,
-                error: {}
+                errors: []
+            };
+        case 'TOGGLE_AUTOSAVE':
+            return {
+                ...state,
+                autosave: !state.autosave
             };
         default:
             return state;

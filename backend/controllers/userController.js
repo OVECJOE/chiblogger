@@ -11,9 +11,8 @@ exports.get_user = async (req, res) => {
     if (user) {
         res.send(user);
     } else {
-        res.status(404).send(
-            { error: 'Could not find user' }
-        );
+        const errors = handleErrors('Could not find user');
+        res.status(404).send(errors);
     }
 };
 
@@ -23,9 +22,8 @@ exports.get_users = async (req, res) => {
     if (user) {
         res.send(users);
     } else {
-        res.status(404).send(
-            { error: 'Could not get users' }
-        );
+        const errors = handleErrors('Could not find users');
+        res.status(404).send(errors);
     }
 };
 
@@ -49,7 +47,7 @@ exports.update_admin_info = async (req, res) => {
                 userFields.password = encryptedPassword;
             } else {
                 const errors = handleErrors('Password must be at least 8 characters long.');
-                return res.status(400).send({ errors });
+                return res.status(400).send(errors);
             }
         }
 
@@ -60,7 +58,7 @@ exports.update_admin_info = async (req, res) => {
         res.send(admin);
     } catch (error) {
         const errors = handleErrors(error);
-        res.status(400).send({ errors });
+        res.status(400).send(errors);
     }
 };
 
@@ -76,10 +74,10 @@ exports.update_admin_photo = async (req, res) => {
             res.send(admin);
         } else {
             const errors = handleErrors('Admin with given user id not found');
-            res.status(404).send({ errors });
+            res.status(404).send(errors);
         }
     } catch (error) {
         const errors = handleErrors(error);
-        res.status(400).send({ errors });
+        res.status(400).send(errors);
     }
 };

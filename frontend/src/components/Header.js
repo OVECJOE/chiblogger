@@ -53,8 +53,7 @@ const Header = () => {
                     logoutMessage: ''
                 })), 3000) && ''}
             </div>}
-            {typeof projectData.error === 'object' && 
-                Object.values(projectData.error).length !== 0 &&
+            {projectData.errors.length !== 0 &&
                 <ErrorCard />
             }
             <h3 className='App__header-logo'>

@@ -24,7 +24,7 @@ exports.register = async (req, res) => {
         res.status(201).send(user);
     } catch (err) {
         const errors = handleErrors(err);
-        res.status(400).send({ errors });
+        res.status(400).send(errors);
     }
 };
 
@@ -41,7 +41,7 @@ exports.login = async (req, res) => {
         res.send(user);
     } catch (err) {
         const errors = handleErrors(err);
-        res.status(400).send({ errors });
+        res.status(400).send(errors);
     }
 };
 
