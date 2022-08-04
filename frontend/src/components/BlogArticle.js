@@ -57,7 +57,12 @@ const BlogArticle = () => {
             {newArticle ? <div className='right-container article-section'>
                 <div className='featured-post-info'>
                     <div className='left'>
-                        <img src={newArticle.creator.photo} alt={newArticle.creator.username} />
+                        {newArticle.creator?.photo ?
+                            <img src={newArticle.creator.photo} alt={newArticle.creator.username} /> :
+                            <span className='without-photo'>
+                                {newArticle.creator?.username?.[0].toUpperCase()}
+                            </span>
+                        }
                         <p>By <span className='author'>{newArticle.creator.username}</span></p>
                         <span className='timestamp'>
                             {computeDate(newArticle.createdOn)}

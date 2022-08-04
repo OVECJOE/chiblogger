@@ -111,7 +111,12 @@ const HomePage = () => {
                     <div className='right-container'>
                         <div className='featured-post-info'>
                             <div className='left'>
-                                <img src={randomArticle.creator.photo} alt={randomArticle.creator.username} />
+                                {randomArticle.creator?.photo ?
+                                    <img src={randomArticle.creator.photo} alt={randomArticle.creator.username} /> :
+                                    <span className='without-photo'>
+                                        {randomArticle.creator?.username?.[0].toUpperCase()}
+                                    </span>
+                                }
                                 <p>By <span className='author'>{randomArticle.creator.username}</span></p>
                                 <span className='timestamp'>
                                     {computeDate(randomArticle.createdOn)}

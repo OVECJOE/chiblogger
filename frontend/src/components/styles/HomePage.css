@@ -183,10 +183,17 @@
     font-family: 'Oswald', sans-serif;
 }
 
-.featured-post-info .left > img {
+.featured-post-info .left > img,
+.featured-post-info .left .without-photo {
     width: 30px;
     height: 30px;
     border-radius: 50%;
+}
+
+.featured-post-info .left .without-photo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .featured-post-info .left > p {
