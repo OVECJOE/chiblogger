@@ -11,15 +11,15 @@ const postsRouter = require('./routes/posts');
 const app = express();
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000', ],
     optionsSuccessStatus: 200
 }));
 app.use(express.json({ limit: '50mb' }));
 app.use(cookieParser());
 
 // Defining routes
-app.use('/', usersRouter);
-app.use('/articles', postsRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/articles', postsRouter);
 
 app.get('*', (req, res) => {
     res.status(404).send({

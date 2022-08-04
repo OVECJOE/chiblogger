@@ -60,7 +60,7 @@ const Profile = () => {
             }
         }
 
-        axios.post(`${API_URL}/update-admin`, postData, {
+        axios.post(`${API_URL}/users/update-admin`, postData, {
             withCredentials: true,
         })
             .then(res => {
@@ -84,11 +84,11 @@ const Profile = () => {
 
         setSelectedPhoto(photo);
     };
-    const sendPhoto = (e) => {
+    const sendPhoto = async (e) => {
         e.preventDefault();
 
-        uploadImage(selectedPhoto, userDispatcher);
-        axios.post(`${API_URL}/upload-photo`, {
+        await uploadImage(selectedPhoto, userDispatcher);
+        axios.post(`${API_URL}/users/upload-photo`, {
             photo: userData.photo,
             adminId: userData._id
         }, {

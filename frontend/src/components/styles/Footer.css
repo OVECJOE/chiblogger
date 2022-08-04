@@ -6,8 +6,11 @@
     gap: 1.2rem;
     padding: 2rem;
     border-top: 2px solid #503245;
-    background-color: #b7072d;
+    background: rgb(6,43,16);
+    background: linear-gradient(347deg, rgba(6,43,16,0.9990195907464549) 0%, rgba(61,15,3,0.9934173498500963) 35%, rgba(105,104,30,1) 100%);
     color: #fff;
+    margin: auto;
+    max-width: 1024px;
 }
 
 .App__footer .contact-form {
@@ -15,6 +18,9 @@
     flex-direction: column;
     width: 100%;
     gap: .5rem;
+    border: 1px solid #fff;
+    padding: .5rem .8rem;
+    border-radius: .2rem;
 }
 
 .contact-form .form-title {
@@ -22,7 +28,7 @@
     margin-bottom: 1rem;
     background-color: #fff;
     color: #b7072d;
-    border-radius: 10%;
+    border-radius: 10px;
     padding: .5rem 0;
 }
 
@@ -31,7 +37,6 @@
     flex-direction: column;
     align-items: center;
     gap: .4rem;
-    width: 100%;
 }
 
 .connection-card .social-links {
@@ -46,19 +51,20 @@
 }
 
 .social-links a:hover {
-    color: #160106;
+    color: #e61b48;
     transition: all 800ms ease;
 }
 
 .contact-form input,
 .contact-form textarea {
-    padding: .4rem;
+    padding: .4rem .2rem;
     text-indent: 1%;
     border: none;
+    border-radius: 10px;
 }
 
 .contact-form textarea {
-    height: 100px;
+    height: calc(5rem + 2vmax);
 }
 
 .contact-form button {
@@ -68,16 +74,25 @@
     color: #e61b48;
     font-weight: 700;
     cursor: pointer;
+    border-radius: 20px;
+    transition: all .5s ease;
+}
+
+.contact-form button:hover {
+    background: linear-gradient(347deg, rgba(4, 211, 59, 0.999) 0%, rgba(194, 66, 33, 0.993) 35%, rgb(67, 66, 2) 100%);
+    color: #fff;
+    transition: all .5s ease;
 }
 
 @media (min-width: 700px) {
     .App__footer {
         flex-direction: row;
+        padding: auto;
         gap: .6rem;
     }
 
     .App__footer .contact-form {
-        justify-content: center;
+        justify-content: space-around;
         width: 50%;
     }
 

@@ -9,7 +9,10 @@ const ProjectContextProvider = (props) => {
         JSON.parse(localStorage.getItem('projectData')) || {
             msgPopup: false,
             errors: [],
-            autosave: true
+            autosave: true,
+            view: false,
+            data: null,
+            articlesLiked: [],
         }
     );
 

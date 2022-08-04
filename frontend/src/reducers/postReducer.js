@@ -12,26 +12,23 @@ export const postReducer = (state, action) => {
                 [action.key]: action.value
             };
         case 'UPDATE_PHOTO':
-            let articleImages = [];
-
-            if (state.articleImages.length >= 5) {
-                articleImages = [
-                    action.photoUrl
-                ]
-            } else {
-                articleImages = [
-                    ...state.articleImages,
-                    action.photoUrl
-                ];
+            if (state.articleImages.length < 5) {
+                return {
+                    ...state,
+                    articleImages: [
+                        ...state.articleImages,
+                        action.photoUrl
+                    ]
+                };
             }
             return {
                 ...state,
-                articleImages
+                articleImages: [action.photoUrl]
             };
-        case 'PUBLISH_ARTICLE':
+        case 'TOGGLE_PUBLISHED':
             return {
                 ...state,
-                published: true
+                published: action.published
             };
         case 'CLEAR_ARTICLE_DATA':
             return action.default;

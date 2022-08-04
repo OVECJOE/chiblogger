@@ -1,4 +1,5 @@
-import { useContext, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { FaRegHandPointDown } from 'react-icons/fa';
 
@@ -13,12 +14,15 @@ import axios from 'axios';
 const NewArticle = () => {
     const [images, setImages] = useState([]);
     const [autosave, setAutosave] = useState(true);
+    const [published, setPublished] = useState(false);
     const { defaultArticle, articleData, articleDispatcher }
         = useContext(PostContext);
     const { articlesDispatcher } = useContext(ArticlesContext);
     const { userData } = useContext(UserContext);
     const { projectDispatcher } = useContext(ProjectContext);
     const editorRef = useRef();
+
+    const navigate = useNavigate();
 
     const insert_content = (inst) => {
         inst.setContent(articleData.content);
@@ -29,9 +33,11 @@ const NewArticle = () => {
         const data = {};
 
         if (name === 'title') {
-            const words = value.toLowerCase().split(' ');
+            const slugName = value.toLowerCase()
+            .replace(/ /g, '-')
+            .replace(/[^\w-]+/g, '');
 
-            data['slugName'] = words.join('-');
+            data['slugName'] = slugName;
             data['title'] = value;
         } else if (name === 'articleImages') {
             const { files } = e.target;
@@ -40,7 +46,7 @@ const NewArticle = () => {
             data[name] = type === 'checkbox' ? checked : value;
         }
 
-        data['creatorId'] = userData._id;
+        data['creator'] = userData._id;
 
         articleDispatcher({
             type: 'UPDATE_PROPERTY',
@@ -69,7 +75,7 @@ const NewArticle = () => {
         }
     };
 
-    const saveArticle = (published = false) => {
+    const saveArticle = async () => {
         const API_URL = process.env.REACT_APP_API_URL;
         const { title, slugName, content } = articleData;
 
@@ -91,12 +97,8 @@ const NewArticle = () => {
 
         for (const i in images) {
             const image = images[i];
-            uploadImage(image, articleDispatcher);
+            await uploadImage(image, articleDispatcher);
         }
-
-        published && articleDispatcher({
-            type: 'PUBLISH_ARTICLE'
-        });
 
         axios.post(`${API_URL}/articles/new-article`, articleData, {
             withCredentials: true
@@ -111,20 +113,34 @@ const NewArticle = () => {
                     default: defaultArticle()
                 });
                 editorRef.current.setContent('');
+                setImages([]);
+                navigate('/dashboard/articles', {replace: true})
             })
             .catch(err => {
                 erroneous(err, projectDispatcher);
             });
-        setImages([]);
     };
+
+    useEffect(() => {
+        articleDispatcher({
+            type: 'TOGGLE_PUBLISHED',
+            published
+        });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [published]);
+
+    useEffect(() => {
+        published && saveArticle();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [articleData.published]);
 
     return (
         <section className='new-article-container'>
             <div className='article-metadata'>
                 <h1>Create New Article</h1>
                 <div className='action-btns'>
-                    <button onClick={saveArticle}>Save</button>
-                    <button onClick={() => saveArticle(true)}>
+                    <button onClick={saveArticle}>Save As Draft</button>
+                    <button onClick={() => setPublished(true)}>
                         Save and Publish
                     </button>
                 </div>

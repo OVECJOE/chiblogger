@@ -6,6 +6,9 @@
     gap: 0.5rem;
     padding: 1rem 0;
     position: relative;
+    border-top: 4px solid #6eab03;
+    border-bottom: 2px solid #605107;
+    background-color: #ffffff;
 }
 
 .App__header .logout-msg {
@@ -51,7 +54,8 @@
     align-items: center;
     margin: auto;
     padding: 1.5rem;
-    background-color: #e61b48;
+    background: rgb(6,43,16);
+    background: linear-gradient(347deg, rgba(6,43,16,0.9990195907464549) 0%, rgba(61,15,3,0.9934173498500963) 35%, rgba(105,104,30,1) 100%);
     gap: .5rem;
     position: fixed;
     left: 8%;
@@ -158,7 +162,6 @@
         padding: 1rem 2.5rem;
         position: -webkit-sticky;
         position: sticky;
-        background-color: #ffffff;
         z-index: 10;
         top: 0;
     }

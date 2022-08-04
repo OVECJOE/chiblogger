@@ -13,6 +13,17 @@
     z-index: 20;
 }
 
+.auth-form-container .alternative {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #80021e;
+    font-weight: 600;
+}
+
+.auth-form-container .alternative span {
+    cursor: pointer;
+    text-decoration: underline 2px solid #f89f05;
+}
+
 .auth-form-container > .cancel-btn {
     position: absolute;
     top: .5%;

@@ -11,11 +11,11 @@ router.post('/register', authController.register);
 // register user endpoint
 router.post('/login', authController.login);
 // logout user endpoint
-router.get('/logout', authController.logout);
+router.post('/logout', authController.logout);
 // get user endpoint
-router.get('/:username', requireAuth, userController.get_user);
+router.get('/:username', userController.get_user);
 // get all users endpoint
-router.get('/users', requireAuth, userController.get_users);
+router.get('/', userController.get_users);
 // update admin info
 router.post('/update-admin', requireAuth, userController.update_admin_info);
 // upload admin photo

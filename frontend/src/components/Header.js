@@ -25,12 +25,12 @@ const Header = () => {
     const generateForm = (signup) => {
         setState({
             ready: !state.ready,
-            signup: signup
+            signup
         });
     };
 
     const logUserOut = () => {
-        axios.get(`${API_URL}/logout`, {
+        axios.post(`${API_URL}/users/logout`, {
             withCredentials: true,
         }).then(res => {
             userDispatcher({ type: 'REMOVE_USER' });

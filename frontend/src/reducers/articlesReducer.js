@@ -5,10 +5,14 @@ export const articlesReducer = (state, action) => {
                 ...state,
                 action.article
             ];
+        case 'DELETE_ARTICLE':
+            return state.filter(article => {
+                return article._id !== action.id;
+            });
         case 'STORE_ARTICLES':
             if (action.articles instanceof Array &&
-                action.article.length > 0) {
-                return action.article;
+                action.articles.length > 0) {
+                return action.articles;
             }
             console.log(action.articles);
             return state;

@@ -8,8 +8,8 @@ const comment = new Schema({
         enum: ['positive', 'negative'],
         required: true
     },
-    userId: { type: ObjectId, ref: 'User' },
-    postId: { type: ObjectId, ref: 'Post' },
+    user: { type: ObjectId, ref: 'User' },
+    post: { type: ObjectId, ref: 'Post' },
     title: { type: String, trim: true, maxLength: 100 },
     content: {
         type: String,

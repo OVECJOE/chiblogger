@@ -42,6 +42,7 @@
     border-radius: 5px;
     cursor: pointer;
     transition: all 400ms ease;
+    font-size: calc(.55rem + 1vmin);
 }
 
 .article-metadata input[type='file'] {
@@ -89,7 +90,7 @@
     text-align: center;
 }
 
-.new-article-container .article-body {
+.new-article-container > .article-body {
     display: flex;
     flex-direction: column;
     gap: .6rem;

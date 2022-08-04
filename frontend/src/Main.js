@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import {
     BrowserRouter as Router,
-    Routes, Route, Navigate
+    Routes, Route
 } from 'react-router-dom';
 
 import HomePage from './components/HomePage';
@@ -17,6 +17,7 @@ import { UserContext } from './contexts/userContext';
 import Header from './components/Header';
 import AuthContextProvider from './contexts/authContext';
 import ProjectContextProvider from './contexts/projectContext';
+import NotFoundPage from './components/NotFoundPage';
 
 const Main = () => {
     const { userData } = useContext(UserContext);
@@ -32,16 +33,22 @@ const Main = () => {
                     <Route path='/learn' element={<LearnPage />} />
                     <Route path='/about' element={<AboutPage />} />
                     {
-                        (userData && userData.isAdmin) &&
+                        (userData?.isAdmin) &&
                         <Route path='/dashboard/*' element={<Dashboard />}>
                             <Route index element={<Profile />} />
                             <Route path='new-article' element={<NewArticle />} />
                             <Route path='articles' element={<Articles />} />
                             <Route path='subscribers' element={<Subscribers />} />
-                            <Route path='articles/:articleId' element={<BlogArticle />} />
                         </Route>
                     }
-                    <Route path='*' element={<Navigate to='/' replace />} />
+                    {userData?.username &&
+                        <Route path='articles/:slugName' element={<BlogArticle />} />
+                    }
+                    <Route path='*'
+                        element={<NotFoundPage
+                            notFound={true}
+                        />}
+                        />
                 </Routes>
             </ProjectContextProvider>
         </Router>

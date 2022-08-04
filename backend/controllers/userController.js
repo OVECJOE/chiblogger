@@ -19,7 +19,7 @@ exports.get_user = async (req, res) => {
 exports.get_users = async (req, res) => {
     const users = await User.find({});
 
-    if (user) {
+    if (users) {
         res.send(users);
     } else {
         const errors = handleErrors('Could not find users');

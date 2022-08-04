@@ -5,9 +5,8 @@ const { ObjectId } = Schema.Types;
 const category = new Schema({
     name: {
         type: String,
-        required: true,
-        enum: ['popular', 'latest'],
-        default: 'latest'
+        required: [true, 'Name of category is required'],
+        unique: [true, 'Name of category must be unique']
     },
     posts: [
         { type: ObjectId, ref: 'Post' }

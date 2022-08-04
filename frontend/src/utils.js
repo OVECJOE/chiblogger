@@ -30,7 +30,7 @@ export const erroneous = (err, errDispatcher) => {
     });
 };
 
-export const uploadImage = (photo, dispatcher) => {
+export const uploadImage = async (photo, dispatcher) => {
     const data = new FormData();
 
     data.append('file', photo);
@@ -45,4 +45,33 @@ export const uploadImage = (photo, dispatcher) => {
     }).catch(err => {
         erroneous(err, dispatcher);
     });
+};
+
+export const computeDate = (dateString) => {
+    const dateCreated = new Date(dateString);
+    const presentDate = new Date();
+
+    let result = presentDate.getFullYear() - dateCreated.getFullYear();
+
+    if (!result) {
+        result = presentDate.getMonth() - dateCreated.getMonth();
+        if (!result) {
+            result = presentDate.getDay() - dateCreated.getDay();
+            if (!result) {
+                result = presentDate.getHours() - dateCreated.getHours();
+                if (!result) {
+                    result = presentDate.getMinutes() - dateCreated.getMinutes();
+                    if (!result) {
+                        result = presentDate.getSeconds() - dateCreated.getSeconds();
+                        return `${result} seconds ago`;
+                    }
+                    return `${result} minutes ago`;
+                }
+                return `${result} hours ago`;
+            }
+            return `${result} days ago`;
+        }
+        return `${result} months ago`;
+    }
+    return `${result} years ago`;
 };

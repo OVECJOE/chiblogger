@@ -1,0 +1,80 @@
+.article-not-found-page {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: .3rem;
+}
+
+.article-not-found-page img {
+    max-width: 100vw;
+}
+
+.article-not-found-page .text {
+    color: #e61b48;
+    background-color: #fff;
+    padding: 1.5rem 1rem;
+    border: 1px solid rgb(236, 224, 224);
+    font-size: calc(.8rem + 1.5vmin);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.article-section .post-title {
+    font-size: calc(1rem + 1.5vmin);
+    text-align: center;
+    color: #e61b48;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 900;
+}
+
+.article-section .article-content {
+    padding: .2rem .2rem .3rem 1rem;
+}
+
+.article-section .article-actions-card {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Mochiy Pop P One', sans-serif;
+    font-size: calc(.5rem + 1vmin);
+    align-items: center;
+    color: #65a000;
+    padding: .3rem .2rem;
+    border-radius: 20px;
+    background-color: #fff;
+}
+
+.article-section .article-actions-card .likes-card {
+    padding: .1rem;
+    color: #e61b48;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.article-actions-card .likes-card .like-btn {
+    font-size: calc(1rem + 1vmin);
+    background-color: #e61b48;
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    box-shadow: 1px 1px 2px 1px rgb(75, 73, 73);
+    cursor: pointer;
+}
+
+@media (min-width: 480px) and (max-width: 699px) {
+    .article-section {
+        margin: auto;
+        max-width: 75%;
+        background-color: #fff;
+    }
+}
+
+@media (min-width: 900px) {
+    .article-section {
+        margin: auto;
+        max-width: 1024px;
+    }
+}

@@ -11,7 +11,7 @@ const PostContextProvider = (props) => {
         articleImages: [],
         content: '',
         premiumRead: false,
-        creatorId: '',
+        creator: '',
         published: false,
         categories: []
     });

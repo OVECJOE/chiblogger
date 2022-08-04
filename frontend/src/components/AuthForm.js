@@ -24,12 +24,19 @@ const AuthForm = ({ signup, setState }) => {
         updateProperty(e, authDispatcher);
     };
 
+    const toggleSignup = () => {
+        setState(state => ({
+            ...state,
+            signup: !state.signup
+        }));
+    };
+
     const submitData = (e) => {
         e.preventDefault();
 
         const route = signup ? 'register' : 'login';
 
-        axios.post(`${API_URL}/${route}`, authData, {
+        axios.post(`${API_URL}/users/${route}`, authData, {
             withCredentials: true,
         })
         .then(res => {            
@@ -102,6 +109,13 @@ const AuthForm = ({ signup, setState }) => {
                     />
                 </div>
                 <button>Submit</button>
+                <p className='alternative'>
+                    {signup ? 'Already': 'Not yet'} a subscriber?{" "}
+                    <span 
+                        onClick={toggleSignup}
+                    >{signup ? 'Login' : 'Signup'}</span>
+
+                </p>
             </form>
         </div>
     );
