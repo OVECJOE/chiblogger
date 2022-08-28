@@ -9,7 +9,6 @@ import { ProjectContext } from '../contexts/projectContext';
 import { updateProperty, erroneous } from '../utils';
 
 const AuthForm = ({ signup, setState }) => {
-    const API_URL = process.env.REACT_APP_API_URL;
 
     const { authData, authDispatcher } = useContext(AuthContext);
     const { userDispatcher } = useContext(UserContext);
@@ -36,20 +35,24 @@ const AuthForm = ({ signup, setState }) => {
 
         const route = signup ? 'register' : 'login';
 
-        axios.post(`${API_URL}/users/${route}`, authData, {
-            withCredentials: true,
-        })
-        .then(res => {            
-            localStorage.removeItem('authData');
-            userDispatcher({
-                type: 'STORE_USER',
-                user: res.data
+        const config = {
+            headers: {
+                'Content-type': 'application/json'
+            },
+        };
+
+        axios.post(`/api/users/${route}`, authData, config)
+            .then(res => {
+                localStorage.removeItem('authData');
+                userDispatcher({
+                    type: 'STORE_USER',
+                    user: res.data
+                });
+                falsifyReady();
+            })
+            .catch(err => {
+                erroneous(err, projectDispatcher);
             });
-            falsifyReady();
-        })
-        .catch(err => {
-            erroneous(err, projectDispatcher);
-        });
     };
 
     return (
@@ -110,8 +113,8 @@ const AuthForm = ({ signup, setState }) => {
                 </div>
                 <button>Submit</button>
                 <p className='alternative'>
-                    {signup ? 'Already': 'Not yet'} a subscriber?{" "}
-                    <span 
+                    {signup ? 'Already' : 'Not yet'} a subscriber?{" "}
+                    <span
                         onClick={toggleSignup}
                     >{signup ? 'Login' : 'Signup'}</span>
 

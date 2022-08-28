@@ -10,14 +10,12 @@ const ArticlesContextProvider = (props) => {
         JSON.parse(localStorage.getItem('articles')) || []
     );
 
-    const API_URL = process.env.REACT_APP_API_URL;
-
     useEffect(() => {
         localStorage.setItem('articles', JSON.stringify(articles));
     }, [articles]);
 
     useEffect(() => {
-        axios.get(`${API_URL}/articles`).then(res => {
+        axios.get(`/api/articles`).then(res => {
 
             articlesDispatcher({
                 type: 'STORE_ARTICLES',

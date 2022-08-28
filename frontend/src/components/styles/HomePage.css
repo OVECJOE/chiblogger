@@ -194,6 +194,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #b7072d;
 }
 
 .featured-post-info .left > p {
@@ -250,6 +251,8 @@
 
 .right-container .article-photos {
     display: flex;
+    max-height: 18em;
+    border-radius: 3px;
     overflow-x: auto;
 }
 
@@ -265,7 +268,6 @@
 
 .article-photos img {
     width: 100%;
-    max-height: 18.75rem;
     flex-shrink: 0;
 }
 

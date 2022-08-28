@@ -27,8 +27,6 @@ const HomePage = () => {
     );
     const navigate = useNavigate();
 
-    const API_URL = process.env.REACT_APP_API_URL;
-
     const chooseCategory = (e) => {
         const { id } = e.target;
 
@@ -47,7 +45,7 @@ const HomePage = () => {
         const publishedArticles = articles.filter(article => article.published);
 
         if (category === 'popular') {
-            axios.get(`${API_URL}/users`)
+            axios.get(`/api/users`)
                 .then(res => {
                     const noOfUsers = res.data.length;
 
@@ -76,17 +74,17 @@ const HomePage = () => {
                         <h2 className='title'>
                             Everything about Health Fitness
                         </h2>
-                        <p className='content'>
+                        <article className='content'>
                             Lorem Ipsum Is Simply Dummy Text
                             Of The Printing And
-                        </p>
+                        </article>
                     </div>
                     <div className='right-card'>
                         <div className='left'>
                             <img src={require('../assets/img-1.jpg')} alt='hero sample 1' />
-                            <img src={require('../assets/img-3.jpg')} alt='hero sample 1' />
+                            <img src={require('../assets/img-3.jpg')} alt='hero sample 2' />
                         </div>
-                        <img src={require('../assets/img-2.jpg')} alt='hero sample 1' />
+                        <img src={require('../assets/img-2.jpg')} alt='hero sample 3' />
                     </div>
                 </section>
                 <section className='posts-container'>
@@ -109,34 +107,49 @@ const HomePage = () => {
                         />
                     </div>
                     <div className='right-container'>
-                        <div className='featured-post-info'>
-                            <div className='left'>
-                                {randomArticle.creator?.photo ?
-                                    <img src={randomArticle.creator.photo} alt={randomArticle.creator.username} /> :
-                                    <span className='without-photo'>
-                                        {randomArticle.creator?.username?.[0].toUpperCase()}
-                                    </span>
-                                }
-                                <p>By <span className='author'>{randomArticle.creator.username}</span></p>
-                                <span className='timestamp'>
-                                    {computeDate(randomArticle.createdOn)}
-                                </span>
-                            </div>
-                            <button className='share-btn'>Share</button>
-                        </div>
-                        <h1 className='post-title'>
-                            {randomArticle.title}
-                        </h1>
-                        <img src={randomArticle.selectedFiles[0]} alt={randomArticle.title} />
-                        <TruncateMarkup lines={5} tokenize='words'>
-                            <div className='article-overview'>
-                                {parse(randomArticle.content)}
-                            </div>
-                        </TruncateMarkup>
-                        <button
-                            className='view-more'
-                            onClick={() => showMore(randomArticle._id)}
-                        >View More <FaRegEye /></button>
+                        {randomArticle ?
+                            <>
+                                <div className='featured-post-info'>
+                                    <div className='left'>
+                                        {randomArticle.creator?.photo ?
+                                            <img src={randomArticle.creator.photo} alt={randomArticle.creator.username} /> :
+                                            <span className='without-photo'>
+                                                {randomArticle.creator?.username?.[0].toUpperCase()}
+                                            </span>
+                                        }
+                                        <p>By <span className='author'>{randomArticle.creator.username}</span></p>
+                                        <span className='timestamp'>
+                                            {computeDate(randomArticle.createdOn)}
+                                        </span>
+                                    </div>
+                                    <button className='share-btn'>Share</button>
+                                </div>
+                                <h1 className='post-title'>
+                                    {randomArticle.title}
+                                </h1>
+                                <img src={randomArticle.selectedFiles[0]} alt={randomArticle.title} />
+                                <TruncateMarkup lines={4}>
+                                    <article className='article-overview'>
+                                        {parse(randomArticle.content)}
+                                    </article>
+                                </TruncateMarkup>
+                                <button
+                                    className='view-more'
+                                    onClick={() => showMore(randomArticle._id)}
+                                >View More <FaRegEye /></button>
+                            </> :
+                            <article
+                                style={{ color: 'rgb(12, 93, 12)',
+                                        fontSize: 'calc(15px + 1vmin)',
+                                        textAlign: 'center',
+                                        margin: 'auto',
+                                        fontFamily: "'Mochiy Pop P One', sans-serif"
+                                    }}
+                            >
+                                <span style={{ color: 'maroon' }}>No Article At The Moment,</span>{' '}
+                                You will be notified when a new article is published by the admin.
+                            </article>
+                        }
                     </div>
                 </section>
             </main>

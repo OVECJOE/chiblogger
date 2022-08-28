@@ -1,26 +1,23 @@
 import { useState, useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FaHamburger } from 'react-icons/fa';
-import axios from 'axios';
 
 import './styles/Header.css';
 import AuthForm from './AuthForm';
 import { UserContext } from '../contexts/userContext';
 import { ProjectContext } from '../contexts/projectContext';
 import ErrorCard from './ErrorCard';
-import { erroneous } from '../utils';
 
 const Header = () => {
     const { userData, userDispatcher } = useContext(UserContext);
-    const { projectData, projectDispatcher } = useContext(ProjectContext);
-    const navigate = useNavigate();
-    const API_URL = process.env.REACT_APP_API_URL;
-
+    const { projectData } = useContext(ProjectContext);
     const [state, setState] = useState({
         ready: false,
         signup: true,
         logoutMessage: ''
     });
+
+    const navigate = useNavigate();
 
     const generateForm = (signup) => {
         setState({
@@ -30,18 +27,12 @@ const Header = () => {
     };
 
     const logUserOut = () => {
-        axios.post(`${API_URL}/users/logout`, {
-            withCredentials: true,
-        }).then(res => {
-            userDispatcher({ type: 'REMOVE_USER' });
-            setState(prev => ({
-                ...prev,
-                logoutMessage: res.data.message
-            }));
-            navigate('/', { replace: true });
-        }).catch(err => {
-            erroneous(err, projectDispatcher);
-        });
+        userDispatcher({ type: 'REMOVE_USER' });
+        setState(prev => ({
+            ...prev,
+            logoutMessage: 'Logout Successful!'
+        }));
+        navigate('/', { replace: true });
     };
 
     return (
@@ -53,7 +44,7 @@ const Header = () => {
                     logoutMessage: ''
                 })), 3000) && ''}
             </div>}
-            {projectData.errors.length !== 0 &&
+            {projectData.errors?.length !== 0 &&
                 <ErrorCard />
             }
             <h3 className='App__header-logo'>
@@ -95,13 +86,13 @@ const Header = () => {
                         </button>
                     </li> :
                         <>
-                            <li>
-                                {userData.isAdmin &&
+                            {userData.isAdmin &&
+                                <li>
                                     <NavLink to='/dashboard'>
                                         My Dashboard
                                     </NavLink>
-                                }
-                            </li>
+                                </li>
+                            }
                             <li className='user-btns'>
                                 <button
                                     className='logout-btn'

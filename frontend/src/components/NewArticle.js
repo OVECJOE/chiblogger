@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { FaRegHandPointDown } from 'react-icons/fa';
@@ -10,11 +10,16 @@ import { UserContext } from '../contexts/userContext';
 import { uploadImage, erroneous } from '../utils';
 import './styles/NewArticle.css';
 import axios from 'axios';
+import { BsFillCloudUploadFill } from 'react-icons/bs';
+import Loader from './Loader';
 
 const NewArticle = () => {
-    const [images, setImages] = useState([]);
     const [autosave, setAutosave] = useState(true);
     const [published, setPublished] = useState(false);
+    const [uploaded, setUploaded] = useState({
+        state: false,
+        file: { name: '', url: '' }
+    });
     const { defaultArticle, articleData, articleDispatcher }
         = useContext(PostContext);
     const { articlesDispatcher } = useContext(ArticlesContext);
@@ -23,25 +28,53 @@ const NewArticle = () => {
     const editorRef = useRef();
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     const insert_content = (inst) => {
         inst.setContent(articleData.content);
     };
 
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
         const { name, value, type, checked } = e.target;
         const data = {};
 
         if (name === 'title') {
             const slugName = value.toLowerCase()
-            .replace(/ /g, '-')
-            .replace(/[^\w-]+/g, '');
+                .replace(/ /g, '-')
+                .replace(/[^\w-]+/g, '');
 
             data['slugName'] = slugName;
             data['title'] = value;
         } else if (name === 'articleImages') {
-            const { files } = e.target;
-            setImages(files);
+            articleDispatcher({ type: 'CLEAR_PHOTOS' });
+
+            const files = e.target.files;
+
+            if (files.length > 5) {
+                erroneous(
+                    { message: 'Maximum number of images == 5' },
+                    projectDispatcher
+                );
+            } else {
+                setUploaded(prev => ({ ...prev, state: true }));
+
+                for (const file of files) {
+                    uploadImage(file, articleDispatcher, projectDispatcher)
+                    .then(url => {
+                        setUploaded(prev => ({
+                            ...prev,
+                            file: {
+                                name: file.name,
+                                url
+                            }
+                        }));
+                    }).catch(err => {
+                        erroneous(err, projectDispatcher);
+                    });
+                }
+            }
+
+            return;
         } else {
             data[name] = type === 'checkbox' ? checked : value;
         }
@@ -76,16 +109,7 @@ const NewArticle = () => {
     };
 
     const saveArticle = async () => {
-        const API_URL = process.env.REACT_APP_API_URL;
         const { title, slugName, content } = articleData;
-
-        if (images.length > 5) {
-            erroneous(
-                { message: 'Maximum number of images == 5' },
-                projectDispatcher
-            );
-            return;
-        }
 
         if (!(title && slugName && content)) {
             erroneous(
@@ -95,26 +119,31 @@ const NewArticle = () => {
             return;
         }
 
-        for (const i in images) {
-            const image = images[i];
-            await uploadImage(image, articleDispatcher);
-        }
+        axios.post('/api/articles/create_or_update', articleData, {
+            headers: {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${userData.token}`
 
-        axios.post(`${API_URL}/articles/new-article`, articleData, {
-            withCredentials: true
+            },
         })
             .then(res => {
+                setUploaded({
+                    state: false,
+                    file: { name: '', url: '' }
+                });
+
                 articlesDispatcher({
                     type: 'ADD_ARTICLE',
                     article: res.data
                 });
+
                 articleDispatcher({
                     type: 'CLEAR_ARTICLE_DATA',
                     default: defaultArticle()
                 });
+
                 editorRef.current.setContent('');
-                setImages([]);
-                navigate('/dashboard/articles', {replace: true})
+                navigate('/dashboard/articles');
             })
             .catch(err => {
                 erroneous(err, projectDispatcher);
@@ -126,18 +155,18 @@ const NewArticle = () => {
             type: 'TOGGLE_PUBLISHED',
             published
         });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [published]);
 
     useEffect(() => {
         published && saveArticle();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [articleData.published]);
 
     return (
         <section className='new-article-container'>
             <div className='article-metadata'>
-                <h1>Create New Article</h1>
+                <h1>{location.state?.edit ? 'Edit' : 'Create New'} Article</h1>
                 <div className='action-btns'>
                     <button onClick={saveArticle}>Save As Draft</button>
                     <button onClick={() => setPublished(true)}>
@@ -189,11 +218,31 @@ const NewArticle = () => {
                         id='article-image'
                         onChange={handleChange}
                     />
-                    <p className='tooltip'>
-                        These pictures will be displayed at the top of your article
-                        below the article's title in form of an image slider; Maximum
-                        number of images == 5
-                    </p>
+                    {uploaded.state ?
+                        <div
+                            style={{ display: 'flex', 
+                                gap: '.5rem', 
+                                alignItems: 'center',
+                                fontSize: '1.2rem',
+                                marginTop: '.4rem'
+                            }}
+                        >
+                            {uploaded.file.name ?
+                                <>
+                                    <BsFillCloudUploadFill />
+                                    <p className='tooltip'>
+                                        Uploaded {uploaded.file.name} (URL: {uploaded.file.url})
+                                    </p>
+                                </> :
+                                <Loader />
+                            }
+                        </div> :
+                        <p className='tooltip'>
+                            These pictures will be displayed at the top of your article
+                            below the article's title in form of an image slider; Maximum
+                            number of images == 5
+                        </p>
+                    }
                 </div>
                 <div className='article-premium'>
                     <div className='premium-read'>

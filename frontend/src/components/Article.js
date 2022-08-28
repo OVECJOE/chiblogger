@@ -38,7 +38,7 @@ const Article = ({ article, deleteArticle }) => {
         });
         setOptionToggle(false);
         setTimeout(() => {
-            navigate('/dashboard/new-article', { replace: true });
+            navigate('/dashboard/new-article', { state: { edit: true } });
         }, 1000);
     };
 
@@ -64,7 +64,7 @@ const Article = ({ article, deleteArticle }) => {
             </div>
             <div className='article-summary'>
                 <h3 className='article-title'>{article.title}</h3>
-                <TruncateMarkup lines={3} tokenize='words'>
+                <TruncateMarkup lines={3}>
                     <div className='article-piece'>
                         {content}
                     </div>

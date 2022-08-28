@@ -2,9 +2,11 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { MdCancel, MdStars } from 'react-icons/md';
 import parse from 'html-react-parser';
+import { v4 as uuid } from 'uuid';
 
 import { ArticlesContext } from "../contexts/articlesContext";
 import { ProjectContext } from "../contexts/projectContext";
+import { UserContext } from '../contexts/userContext';
 import { erroneous } from "../utils";
 import Article from './Article';
 import './styles/Articles.css';
@@ -12,18 +14,21 @@ import './styles/Articles.css';
 const Articles = () => {
     const { articles, articlesDispatcher } = useContext(ArticlesContext);
     const { projectData, projectDispatcher } = useContext(ProjectContext);
+    const { userData } = useContext(UserContext);
 
     const [publishedArticles, setPublishedArticles] = useState([]);
     const [draftedArticles, setDraftedArticles] = useState([]);
 
-    const API_URL = process.env.REACT_APP_API_URL;
-
     const deleteArticle = (id) => {
-        axios.delete(`${API_URL}/articles/${id}`)
+        axios.delete(`/api/articles/${id}`, {
+            headers: {
+                Authorization: `Bearer ${userData.token}`
+            }
+        })
             .then(res => {
                 articlesDispatcher({
-                    type: 'DELETE_ARTICLE',
-                    id
+                    type: 'STORE_ARTICLES',
+                    articles: res.data
                 });
             }).catch(err => {
                 erroneous(err, projectDispatcher);
@@ -75,7 +80,7 @@ const Articles = () => {
                                 <Article
                                     article={article}
                                     deleteArticle={deleteArticle}
-                                    key={article._id}
+                                    key={uuid()}
                                 />
                             );
                         })}

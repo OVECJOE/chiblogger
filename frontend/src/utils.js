@@ -1,6 +1,5 @@
 import axios from "axios";
 
-const UPLOAD_URL = 'https://api.cloudinary.com/v1_1/chiblogger/image/upload';
 export const updateProperty = (event, dispatch) => {
     const { name, value } = event.target;
 
@@ -15,13 +14,13 @@ export const erroneous = (err, errDispatcher) => {
     let errors = [];
 
     if (err && err.response) {
-        if (err.response.data) {
+        if (err.response.data && err.response.data instanceof Array) {
             errors = err.response.data;
         } else if (err.response.statusText) {
             errors.push(err.response.statusText);
         }
     }
-    if (err.message && !errors.length)
+    if (err.message && errors.length === 0)
         errors.push(err.message);
 
     errDispatcher({
@@ -30,21 +29,27 @@ export const erroneous = (err, errDispatcher) => {
     });
 };
 
-export const uploadImage = async (photo, dispatcher) => {
+export const uploadImage = async (photo, dispatcher, errDispatcher) => {
+    const UPLOAD_URL = process.env.REACT_APP_UPLOAD_IMAGE_URL;
     const data = new FormData();
 
     data.append('file', photo);
     data.append('upload_preset', 'chiblogger');
-    data.append('cloud_name', 'chiblogger');
+    data.append('cloud_name', 'ovecjoe');
 
-    axios.post(UPLOAD_URL, data).then(res => {
+    try {
+        const imageObj = await axios.post(UPLOAD_URL, data);
         dispatcher({
             type: 'UPDATE_PHOTO',
-            photoUrl: res.data.url
+            photoUrl: imageObj.data.url
         });
-    }).catch(err => {
-        erroneous(err, dispatcher);
-    });
+
+        return imageObj.data.url;
+    } catch (error) {
+        erroneous(error, errDispatcher);
+    }
+
+
 };
 
 export const computeDate = (dateString) => {

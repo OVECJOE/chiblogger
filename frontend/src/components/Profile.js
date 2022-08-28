@@ -22,8 +22,6 @@ const Profile = () => {
     const [activeUploadModal, setActiveUploadModal] = useState(false);
     const [selectedPhoto, setSelectedPhoto] = useState({});
 
-    const API_URL = process.env.REACT_APP_API_URL;
-
     const toggleEdit = () => setEditOff(prev => !prev);
     const togglePassEdit = () => setPassEdit(prev => ({
         ...prev,
@@ -44,24 +42,24 @@ const Profile = () => {
         const flag = Object.values(passEdit).every(value => value);
         const postData = {
             username: userData.username,
-            email: userData.email,
-            adminId: userData._id
+            email: userData.email
         };
 
         if (flag) {
             if (passEdit.newPassword === passEdit.confirmPassword) {
                 postData.password = passEdit.newPassword;
             } else {
-                projectDispatcher({
-                    type: 'SET_ERROR',
-                    error: { message: 'Given passwords not equal' }
-                });
+                const e = { message: 'Given passwords not equal' };
+                erroneous(e, projectDispatcher);
                 return;
             }
         }
 
-        axios.post(`${API_URL}/users/update-admin`, postData, {
-            withCredentials: true,
+        axios.post('/api/users/update-admin', postData, {
+            headers: {
+                "Content-type": 'application/json',
+                Authorization: `Bearer ${userData.token}`,
+            }
         })
             .then(res => {
                 userDispatcher({
@@ -84,21 +82,26 @@ const Profile = () => {
 
         setSelectedPhoto(photo);
     };
-    const sendPhoto = async (e) => {
+    const sendPhoto = (e) => {
         e.preventDefault();
 
-        await uploadImage(selectedPhoto, userDispatcher);
-        axios.post(`${API_URL}/users/upload-photo`, {
-            photo: userData.photo,
-            adminId: userData._id
-        }, {
-            withCredentials: true,
-        }).then(res => {
-            userDispatcher({
-                type: 'STORE_USER',
-                user: res.data
+        uploadImage(selectedPhoto, userDispatcher, projectDispatcher)
+        .then(photo => {
+            console.log(photo);
+            axios.post('/api/users/upload-photo', { photo }, {
+                headers: {
+                    "Content-type": "application/json",
+                    Authorization: `Bearer ${userData.token}`
+                },
+            }).then(res => {
+                userDispatcher({
+                    type: 'STORE_USER',
+                    user: res.data
+                });
+                setActiveUploadModal(false);
+            }).catch(err => {
+                erroneous(err, projectDispatcher);
             });
-            setActiveUploadModal(false);
         }).catch(err => {
             erroneous(err, projectDispatcher);
         });
