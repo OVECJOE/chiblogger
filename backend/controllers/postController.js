@@ -49,7 +49,7 @@ exports.get_posts = async (req, res) => {
         const posts = await Post.find({})
             .populate('creator')
             .populate({ path: 'categories', model: Category })
-            .populate({ path: 'comments', model: Comment });
+            .populate({ path: 'comments', populate: { path: 'user' } });
 
         if (!posts) {
             const errors = handleErrors('Could not get posts; Something went wrong.');
@@ -94,7 +94,10 @@ exports.like_article = async (req, res) => {
     try {
         const post = await Post.findOne({ slugName })
             .populate('creator')
-            .populate('comments')
+            .populate({
+                path: 'comments',
+                populate: { path: 'user' }
+            })
             .populate('categories');
 
         if (!post) {
@@ -113,6 +116,78 @@ exports.like_article = async (req, res) => {
 
         await post.save();
         res.send(post);
+    } catch (err) {
+        const errors = handleErrors(err);
+        res.status(400).send(errors);
+    }
+};
+
+exports.create_comment = async (req, res) => {
+    const { type, title, content } = req.body;
+    const { postId } = req.params;
+
+    const commentData = {
+        content, post: postId,
+        user: req.user._id, title
+    };
+
+    if (type) {
+        commentData.type = type;
+    }
+
+    try {
+        const comment = await Comment.create(commentData);
+
+        const post = await Post.findByIdAndUpdate(postId, {
+            $addToSet: { comments: comment._id }
+        }, { new: true })
+            .populate('creator')
+            .populate({
+                path: 'comments',
+                populate: { path: 'user' }
+            })
+            .populate('categories');
+
+        if (post) {
+            res.send(post);
+        } else {
+            const errors = handleErrors('Article Not Found');
+            res.status(404).send(errors);
+        }
+    } catch (err) {
+        const errors = handleErrors(err);
+        res.status(400).send(errors);
+    }
+};
+
+exports.delete_comment = async (req, res) => {
+    const { postId, commentId } = req.params;
+
+    try {
+        const comment = await Comment.findById(commentId);
+
+        if (comment.user.equals(req.user._id)) {
+            const post = await Post.findByIdAndUpdate(postId, {
+                $pull: { comments: comment._id }
+            }, { new: true })
+            .populate('creator')
+            .populate({
+                path: 'comments',
+                populate: { path: 'user' }
+            })
+            .populate('categories');
+
+            if (post) {
+                await comment.delete();
+                res.send(post);
+            } else {
+                const errors = handleErrors('Could not associated article.');
+                res.send(400).send(errors);
+            }
+        } else {
+            const errors = handleErrors('This is not your comment dude!');
+            res.status(401).send(errors);
+        }
     } catch (err) {
         const errors = handleErrors(err);
         res.status(400).send(errors);

@@ -82,7 +82,7 @@
     font-weight: 900;
 }
 
-.container {
+.article-page {
     margin: auto;
     position: absolute;
     top: 0;
@@ -176,10 +176,92 @@
     color: #062a04;
     font-weight: 600;
 }
-/* 
+
 .article-board > .comments {
     display: flex;
-} */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.article-board > .comments > .comment {
+    width: 16em;
+    border: 1px solid #e61b48;
+    border-radius: 3px;
+    padding: .2rem .5rem;
+    background-color: #e1f1e2;
+
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+}
+
+.article-board .comment .comment-creator {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.article-board .comment-creator .name {
+    text-transform: uppercase;
+    color: #8e1908;
+    font-size: calc(.5rem + .5vmin);
+}
+
+.article-board .comment-creator time {
+    font-size: calc(.8rem + .5vmin);
+    color: #1d0502;
+}
+
+.article-board [class*=-type]::before,
+.article-board [class*=-type]::after {
+    content: "";
+    display: inline-block;
+    width: calc(1em + 3vmin);
+    height: 5px;
+    background-color: #e61b48;
+    border-radius: 20px;
+    margin: 0 .3rem;
+}
+
+.article-board [class*=-type] {
+    align-self: center;
+    text-transform: capitalize;
+    font-family: cursive;
+    font-weight: bold;
+}
+
+.neutral-type {
+    color: blue;
+}
+
+.negative-type {
+    color: red;
+}
+
+.positive-type {
+    color: green;
+}
+
+.article-board .comment .comment-title {
+    font-size: calc(1rem + .5vmin);
+    color: #053c02;
+    font-weight: bolder;
+}
+
+.article-board .comment .comment-body {
+    color: #062a04;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.article-board .comment .votes {
+    display: flex;
+    justify-content: space-between;
+    gap: .4rem;
+    font-size: calc(.5rem + 1vmin);
+    color: #f12505f8;
+}
 
 @media (min-width: 700px) {
     .article-cards h1 {
@@ -195,7 +277,17 @@
 
 @media (min-width: 1024px) {
     .article-board > .cancel-btn {
-        left: 50%;
-        right: 50%;
+        left: 10px;
+        top: 5px;
+        box-shadow: 0px 1px 1px 1px #062a04;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+    }
+
+    .article-board .title {
+        text-align: end;
     }
 }

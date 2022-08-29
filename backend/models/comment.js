@@ -6,7 +6,6 @@ const comment = new Schema({
     type: {
         type: String,
         enum: ['positive', 'negative', 'neutral'],
-        required: true,
         default: 'neutral'
     },
     user: { type: ObjectId, ref: 'User' },

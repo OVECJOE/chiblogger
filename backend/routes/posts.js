@@ -12,5 +12,9 @@ router.get('/', postController.get_posts);
 router.delete('/:id', requireAuth, postController.delete_post);
 // like or unlike an article
 router.put('/:slugName/like', requireAuth, postController.like_article);
+// create new comment
+router.post('/:postId/comments/new', requireAuth, postController.create_comment);
+// delete a comment
+router.delete('/:postId/comments/:commentId', requireAuth, postController.delete_comment);
 
 module.exports = router;

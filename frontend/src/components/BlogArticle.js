@@ -2,7 +2,9 @@ import parse from 'html-react-parser';
 import { useContext, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { AiFillLike } from 'react-icons/ai';
-import { FaComments, FaCommentDots } from 'react-icons/fa';
+import { BiDownvote, BiUpvote } from 'react-icons/bi';
+import { FaComments, FaCommentDots, FaEdit } from 'react-icons/fa';
+import { MdDelete } from 'react-icons/md';
 import { v4 as uuid } from 'uuid';
 import axios from 'axios';
 import Sentiment from 'sentiment';
@@ -29,9 +31,17 @@ const BlogArticle = () => {
     const [comment, setComment] = useState({
         type: '',
         title: '',
-        content: ''
+        content: '',
     });
-    const [typeChosen, setTypeChosen] = useState(false);
+
+    // sentiment analyser object
+    const sentiment = new Sentiment();
+    const config = {
+        headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${userData.token}`
+        }
+    };
 
     useEffect(() => {
         const likerIdx = newArticle.likers?.indexOf(userData._id);
@@ -44,13 +54,29 @@ const BlogArticle = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [newArticle]);
 
-    const likeArticle = () => {
-        axios.put(`/api/articles/${slugName}/like`, {}, {
-            headers: {
-                'Content-type': 'application/json',
-                Authorization: `Bearer ${userData.token}`
+    useEffect(() => {
+        if (comment.content) {
+            const result = sentiment.analyze(comment.content);
+            let conclusion;
+
+            if (result.score > 0) {
+                conclusion = 'positive';
+            } else if (result.score < 0) {
+                conclusion = 'negative';
+            } else {
+                conclusion = ''
             }
-        })
+
+            setComment(prev => ({
+                ...prev,
+                type: conclusion
+            }))
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [comment.content]);
+
+    const likeArticle = () => {
+        axios.put(`/api/articles/${slugName}/like`, {}, config)
             .then(res => {
                 setNewArticle(res.data);
                 articlesDispatcher({
@@ -65,30 +91,7 @@ const BlogArticle = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        
-        if (comment.content && !typeChosen) {
-            const sentiment = new Sentiment();
-            const result = sentiment.analyze(comment.content);
-            let conclusion;
-            
-            if (result.score > 0) {
-                conclusion = 'positive';
-            } else if (result.score < 0) {
-                conclusion = 'negative';
-            } else {
-                conclusion = ''
-            }
-            
-            setComment(prev => ({
-                ...prev,
-                type: conclusion
-            }))
-        }
 
-        if (name === 'type') {
-            setTypeChosen(true);
-        }
-        
         setComment(prev => ({
             ...prev,
             [name]: value
@@ -97,6 +100,34 @@ const BlogArticle = () => {
 
     const submitComment = (e) => {
         e.preventDefault();
+
+        axios.post(`/api/articles/${newArticle._id}/comments/new`,
+            comment, config)
+            .then(({ data }) => {
+                setNewArticle(data);
+                articlesDispatcher({
+                    type: 'UPDATE_ARTICLE',
+                    article: data
+                });
+                setComment({
+                    type: '', title: '', content: ''
+                });
+            }).catch(err => {
+                erroneous(err, projectDispatcher);
+            });
+    };
+
+    const delComment = (id) => {
+        axios.delete(`/api/articles/${newArticle._id}/comments/${id}`,
+        config).then(({ data }) => {
+            setNewArticle(data);
+            articlesDispatcher({
+                type: 'UPDATE_ARTICLE',
+                article: data
+            });
+        }).catch(err => {
+            erroneous(err, projectDispatcher)
+        });
     };
 
     return (
@@ -183,7 +214,43 @@ const BlogArticle = () => {
                     </h1>
                     {newArticle.comments?.length ?
                         <div className='comments'>
-                            comments are hidden
+                            {newArticle.comments.map(each => {
+                                return (
+                                    <article className='comment-card' key={uuid()}>
+                                        <div className='comment-type'>
+                                            <div className='red-line'></div>
+                                            <p>{each.type}</p>
+                                            <div className='red-line'></div>
+                                        </div> 
+                                        <h4 className='comment-title'>{each.title || 'No Title'}</h4>
+                                        <p className='comment-content'>
+                                            {each.content}
+                                        </p>
+                                        <div className='comment-data'>
+                                            <p>
+                                                Written by <strong>{each.user.username}</strong> on
+                                                <time className='created'>{` ${each.createdOn.split('T')[0]}`}</time>
+                                            </p>
+                                            <span className='vote-btns'>
+                                                <div>
+                                                    <BiUpvote />
+                                                    <span className='votes'>{each.upvoteCount}</span>
+                                                </div>
+                                                <div>
+                                                    <BiDownvote />
+                                                    <span className='votes'>{each.downvoteCount}</span>
+                                                </div>
+                                            </span>
+                                        </div>
+                                        {userData._id === each.user._id &&
+                                            <div className='comment-action-btns'>
+                                                <FaEdit className='edit' />
+                                                <MdDelete className='del' onClick={() => delComment(each._id)} />
+                                            </div>
+                                        }
+                                    </article>
+                                );
+                            })}
                         </div> :
                         <article className='no-comment-text'>
                             <FaCommentDots />

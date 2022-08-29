@@ -95,7 +95,7 @@ const Articles = () => {
                 </div>
             </section>
             {(projectData.view && projectData.data) &&
-                <div className='container'>
+                <div className='article-page'>
                     <section className='article-board'>
                         <div className='cancel-btn'
                             onClick={() => {
@@ -150,8 +150,8 @@ const Articles = () => {
                                         {comment.content}
                                     </blockquote>
                                     <div className='votes'>
-                                        <span>{comment.upvoteCount}</span>
-                                        <span>{comment.downvoteCount}</span>
+                                        <span>{comment.upvoteCount} upvotes</span>
+                                        <span>{comment.downvoteCount} downvotes</span>
                                     </div>
                                 </article>);
                             })}

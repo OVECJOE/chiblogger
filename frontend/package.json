@@ -23,6 +23,7 @@
     "react-scripts": "5.0.1",
     "react-truncate-markup": "^5.1.2",
     "sentiment": "^5.0.2",
+    "socket.io-client": "^4.5.1",
     "uuid": "^8.3.2",
     "web-vitals": "^2.1.4"
   },
