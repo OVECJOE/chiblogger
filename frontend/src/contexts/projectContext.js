@@ -11,7 +11,8 @@ const ProjectContextProvider = (props) => {
             errors: [],
             autosave: true,
             view: false,
-            data: null
+            data: null,
+            message: ''
         }
     );
 

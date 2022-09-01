@@ -22,7 +22,7 @@ const ArticlesContextProvider = (props) => {
                 articles: res.data
             });
         }).catch(err => {
-            console.log(err.message);
+            alert(err.message);
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [articles.length]);

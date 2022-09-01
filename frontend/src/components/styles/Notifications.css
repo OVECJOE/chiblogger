@@ -1,0 +1,145 @@
+.notifications-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem .4rem;
+    box-sizing: border-box;
+    align-self: center;
+    width: 100%;
+    max-width: 900px;
+}
+
+.notifications-container .inbox-filter-card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: .4rem;
+}
+
+.notifications-container h1 {
+    font-size: calc(1.5rem + 2vmin);
+    font-weight: bold;
+    font-family: 'Poppins', serif;
+}
+
+.inbox-filter-card .filter-box {
+    display: flex;
+    box-shadow: 1px 1px 1px 1px rgb(6,43,16);
+    border-radius: 2px;
+}
+
+.filter-box input,
+.filter-box select {
+    border: none;
+    border-radius: 0;
+    padding: 0 .5rem;
+}
+
+.filter-box select {
+    padding: calc(.3rem + .8vmin);
+    color: #fff;
+    background-color: rgb(6,43,16);
+    cursor: pointer;
+}
+
+.notifications-container .notification-count {
+    text-align: end;
+    border-bottom: 3px solid #b7072d;
+    font-weight: bold;
+    font-size: calc(.5rem + 1.8vmin);
+}
+
+.notification-count span {
+    color: #b7072d;
+}
+
+.notifications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.notifications-list .no-notification {
+    margin: auto;
+    font-size: calc(1.5rem + 2vmin);
+    font-family: 'Poppins', sans-serif;
+    color: #222;
+}
+
+.no-notification .highlighted-text {
+    color: #b7072d;
+}
+
+.notifications-list .notification-card {
+    border: 1px solid #f2f2f1;
+    padding: .3rem;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 300ms ease-out;
+
+    display: flex;
+    flex-direction: column;
+    gap: .1rem;
+}
+
+.notifications-list .unread {
+    background-color: rgb(188, 255, 222);
+}
+
+.notifications-list .unread .message-summary {
+    font-weight: 700;
+}
+
+.notification-card:hover {
+    background-color: #f2f2f1;
+    box-shadow: 0px 1px 1px #506b22;
+    transition: all 300ms ease-out;
+}
+
+.notification-card .message-summary,
+.notification-card .sender-info {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: calc(.5rem + 1.4vmin);
+    text-transform: lowercase;
+}
+
+.notification-card .sender-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 700;
+    font-family: 'Cormorant SC', serif;
+}
+
+.sender-info .name {
+    color: #506b22;
+    font-size: calc(.8rem + 1vmin);
+}
+
+.notification-card .message-summary {
+    font-family: 'Edu VIC WA NT Beginner', cursive;
+    margin: 0 1.3rem;
+    padding: 0 .2rem;
+}
+
+.sender-info .email {
+    font-style: italic;
+    color: #b7072d;
+    text-decoration: none;
+}
+
+.notification-card time {
+    font-size: calc(.5rem + .8vmin);
+    color: rgb(109, 97, 97);
+    align-self: flex-end;
+}
+
+@media (min-width: 560px) {
+    .notifications-container .inbox-filter-card {
+        justify-content: space-between;
+    }
+}

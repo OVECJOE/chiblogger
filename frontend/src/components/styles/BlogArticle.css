@@ -11,6 +11,33 @@
     max-width: 100vw;
 }
 
+.navi-btns {
+    font-size: calc(1.2rem + 1.5vmin);
+    font-family: cursive;
+    font-weight: 700;
+    padding-left: .8rem;
+    
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    box-shadow: 1px 1px 1px rgb(230, 27, 72);
+    background-color: rgba(255, 255, 255, 0.386);
+}
+
+.navi-btns .prev-btn {
+    color: rgb(6,43,16);
+    background-color: #dc8e9f;
+    border-radius: 20px;
+    box-shadow: 0px 1px 1px 1px rgb(6,43,16);
+}
+
+.navi-btns .prev-btn:hover {
+    color: #605107;
+    background-color: #fff;
+    transition: all 300ms ease-in-out;
+    cursor: pointer;
+}
+
 .article-not-found-page .text {
     color: #e61b48;
     background-color: #fff;

@@ -3,7 +3,7 @@
 .dashboard {
     display: flex;
     flex-direction: column;
-    gap: .8rem;
+    /* gap: .8rem; */
     position: relative;
 }
 

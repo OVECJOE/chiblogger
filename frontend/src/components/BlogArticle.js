@@ -1,9 +1,10 @@
 import parse from 'html-react-parser';
 import { useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { AiFillLike } from 'react-icons/ai';
 import { BiDownvote, BiUpvote } from 'react-icons/bi';
-import { FaComments, FaCommentDots, FaEdit } from 'react-icons/fa';
+import { FaComments, FaCommentDots, FaEdit, FaArrowLeft } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import { v4 as uuid } from 'uuid';
 import axios from 'axios';
@@ -21,6 +22,7 @@ const BlogArticle = () => {
     const { articles, articlesDispatcher } = useContext(ArticlesContext);
     const { userData } = useContext(UserContext);
     const { slugName } = useParams();
+    const navigate = useNavigate();
 
     const [newArticle, setNewArticle] = useState(
         articles.filter(article => {
@@ -36,6 +38,7 @@ const BlogArticle = () => {
 
     // sentiment analyser object
     const sentiment = new Sentiment();
+    // configuration for axios request to the server
     const config = {
         headers: {
             'Content-type': 'application/json',
@@ -132,6 +135,9 @@ const BlogArticle = () => {
 
     return (
         <>
+            <div className='navi-btns'>
+                <FaArrowLeft className='prev-btn' onClick={() => navigate(-1)} />
+            </div>
             {newArticle ? <div className='blog-article-container'>
                 <section className='right-container article-section'>
                     <div className='featured-post-info'>

@@ -3,14 +3,14 @@
     flex-direction: column;
     gap: calc(1.2rem + 2vmin);
     max-width: 1024px;
-    padding-bottom: 2.5rem;
+    padding: 1rem 0 2.5rem;
 }
 
 .new-article-container .article-metadata {
     display: flex;
     flex-direction: column;
     gap: .5rem;
-    padding: .2rem 2rem .2rem 1rem;
+    padding: .5rem 1rem;
     font-family: 'Roboto Condensed', sans-serif;
     font-weight: 700;
     color: #135e0b;
@@ -18,19 +18,21 @@
 
 .article-metadata label {
     font-size: calc(.5rem + 1.6vmin);
+    text-transform: uppercase;
 }
 
 .article-metadata > h1 {
     font-family: 'Edu VIC WA NT Beginner', cursive;
     color: #e61b48;
+    margin-bottom: 1rem;
 }
 
 .article-metadata .action-btns {
     display: flex;
     gap: .8rem;
     justify-content: flex-end;
-    border-radius: 3px;
-    padding: 0 0 .1rem;
+    padding: .3rem 0;
+    border-bottom: 2px solid #135e0b88;
 }
 
 .article-metadata .action-btns > button {
@@ -39,10 +41,17 @@
     border: 0;
     padding: .5rem 1rem;
     color: #fff;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
     transition: all 400ms ease;
     font-size: calc(.55rem + 1vmin);
+}
+
+.article-metadata input {
+    border: none;
+    box-shadow: inset -1px 0 1px 1px #e61b48;
+    padding: .7rem 0;
+    text-indent: 10px;
 }
 
 .article-metadata input[type='file'] {
@@ -72,10 +81,6 @@
     text-transform: uppercase;
     font-size: calc(1.5rem + 1vmin);
     text-align: center;
-}
-
-.article-metadata label {
-    text-transform: uppercase;
 }
 
 .article-metadata .tooltip,

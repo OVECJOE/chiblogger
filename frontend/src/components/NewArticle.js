@@ -11,7 +11,7 @@ import { uploadImage, erroneous } from '../utils';
 import './styles/NewArticle.css';
 import axios from 'axios';
 import { BsFillCloudUploadFill } from 'react-icons/bs';
-import Loader from './Loader';
+import Loader from './misc/Loader';
 
 const NewArticle = () => {
     const [autosave, setAutosave] = useState(true);

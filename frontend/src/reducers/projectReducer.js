@@ -32,6 +32,16 @@ const projectReducer = (state, action) => {
                 view: false,
                 data: null
             };
+        case 'SET_MESSAGE':
+            return {
+                ...state,
+                message: action.message
+            };
+        case 'CLEAR_MESSAGE':
+            return {
+                ...state,
+                message: ''
+            };
         default:
             return state;
     }

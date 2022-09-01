@@ -59,7 +59,6 @@ exports.get_posts = async (req, res) => {
         }
     } catch (err) {
         const errors = handleErrors(err);
-        console.log(errors);
         res.status(400).send(errors);
     }
 };
