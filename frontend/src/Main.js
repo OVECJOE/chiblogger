@@ -20,6 +20,7 @@ import AuthContextProvider from './contexts/authContext';
 import NotFoundPage from './components/NotFoundPage';
 import PMessage from './components/PMessage';
 import NotificationsContextProvider from './contexts/notificationsContext';
+import Notification from './components/Notification';
 
 const Main = () => {
     const { userData } = useContext(UserContext);
@@ -42,11 +43,12 @@ const Main = () => {
                         <Route path='/about' element={<AboutPage />} />
                         {
                             (userData?.isAdmin) &&
-                            <Route path='/dashboard/*' element={<Dashboard token={userData.token} />}>
+                            <Route path='/dashboard/*' element={<Dashboard />}>
                                 <Route index element={<Notifications />} />
                                 <Route path='profile' element={<Profile />} />
                                 <Route path='new-article' element={<NewArticle />} />
                                 <Route path='articles' element={<Articles />} />
+                                <Route path='notifications/:id' element={<Notification token={userData.token} />} />
                             </Route>
                         }
                         {userData?.username &&

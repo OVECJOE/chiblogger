@@ -1,16 +1,30 @@
 import { useState, useContext, useEffect } from "react";
-// import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 import { ProjectContext } from "../contexts/projectContext";
 import { NotificationsContext } from '../contexts/notificationsContext';
+import { UserContext } from "../contexts/userContext";
 import './styles/Notifications.css';
 import { erroneous } from "../utils";
+import useSingleAndDoubleClick from "../hooks/useSingleAndDoubleClick";
 
 const Notifications = () => {
-    const { notifications } = useContext(NotificationsContext);
+    const { notifications, notificationsDispatcher } = useContext(NotificationsContext);
     const { projectDispatcher } = useContext(ProjectContext);
+    const { userData } = useContext(UserContext);
+    const navigate = useNavigate();
+
     const [filteredNotifications, setFilteredNotifications] = useState([]);
     const [keyword, setKeyword] = useState('');
+    const [nId, setNId] = useState('');
+
+    const config = {
+        headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${userData.token}`
+        }
+    };
 
     const filterNotificationByKeyword = (n, keyword) => {
         const k = keyword.toLowerCase();
@@ -22,11 +36,32 @@ const Notifications = () => {
     };
 
     const handleChange = (e) => setKeyword(e.target.value);
-    const handleClick = (event) => {
-        const { detail } = event;
-
-        console.log(detail);
+    const singleClickCb = (id) => {
+        axios.put(`/api/notifications/${id}/view`, {}, config)
+        .then(res => {
+            notificationsDispatcher({
+                type: 'UPDATE_NOTIFICATION',
+                notification: res.data
+            });
+            navigate(`/dashboard/notifications/${id}`);
+        })
+        .catch(err => erroneous(err, projectDispatcher));
     };
+    const doubleClickCb = (id) => {
+        axios.delete(`/api/notifications/${id}`, config)
+        .then(res => {
+            notificationsDispatcher({
+                type: 'REMOVE_NOTIFICATION',
+                id: res.data._id
+            });
+            projectDispatcher({
+                type: 'SET_MESSAGE',
+                message: 'Successfully Deleted!'
+            })
+        }).catch(err => erroneous(err, projectDispatcher));
+    };
+
+    const handleClick = useSingleAndDoubleClick(singleClickCb, doubleClickCb, nId);
 
     useEffect(() => {
         switch (keyword) {
@@ -87,17 +122,20 @@ const Notifications = () => {
                 <span>{filteredNotifications.length}</span>{' '}
                 Notifications
             </p>
+            <p className='tooltip'>
+                Click or tap on a notification to view more details about it;
+                Double click or tap to delete
+            </p>
             <div className='notifications-list'>
-                <p className='tooltip'>
-                    Click or tap on a notification to view more details about it;
-                    Double click or tap to delete
-                </p>
                 {filteredNotifications.map(notification => {
                     return (
                         <article
                             className={`notification-card ${!notification.viewed && 'unread'}`}
                             key={notification._id}
-                            onDoubleClick={handleClick}
+                            onClick={() => {
+                                setNId(notification._id);
+                                handleClick();
+                            }}
                         >
                             <div className='sender-info'>
                                 <span className='name'>{notification.firstName}</span>

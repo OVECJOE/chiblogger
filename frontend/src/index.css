@@ -23,3 +23,10 @@ h1 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.tooltip {
+  color: #e61b48;
+  font-size: calc(.5rem + .8vmin);
+  font-weight: 400;
+  font-style: italic;
+}

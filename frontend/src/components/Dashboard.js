@@ -3,7 +3,7 @@ import { Link as NavLink, Outlet } from 'react-router-dom';
 import PostContextProvider from '../contexts/postContext';
 import './styles/Dashboard.css';
 
-const Dashboard = ({ token }) => {
+const Dashboard = () => {
     return (
         <PostContextProvider>
             <main className='dashboard'>

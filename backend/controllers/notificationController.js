@@ -78,6 +78,27 @@ exports.get_notifications = async (req, res) => {
     }
 };
 
+exports.get_notification = async (req, res) => {
+    const { notificationId } = req.params;
+
+    try {
+        // throw error if user is not admin
+        isNotAdminAndBackfire(req.user);
+
+        const notification = await Notification.findById(notificationId);
+
+        if (notification) {
+            res.send(notification);
+        } else {
+            const errors = handleErrors('Could not fetch notification; Given ID is invalid!');
+            res.status(404).send(errors);
+        }
+    } catch (err) {
+        const errors = handleErrors(err);
+        res.status(400).send(errors);
+    }
+};
+
 exports.delete_notification = async (req, res) => {
     const { notificationId } = req.params;
 
