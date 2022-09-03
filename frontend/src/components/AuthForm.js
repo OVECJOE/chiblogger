@@ -49,6 +49,10 @@ const AuthForm = ({ signup, setState }) => {
                     user: res.data
                 });
                 falsifyReady();
+                projectDispatcher({
+                    type: 'SET_MESSAGE',
+                    message: `Successfully logged in. Your ID: ${res.data._id}`
+                });
             })
             .catch(err => {
                 erroneous(err, projectDispatcher);

@@ -7,6 +7,8 @@
     align-self: center;
     width: 100%;
     max-width: 900px;
+
+    position: relative;
 }
 
 .notifications-container .inbox-filter-card {
@@ -136,6 +138,23 @@
     font-size: calc(.5rem + .8vmin);
     color: rgb(109, 97, 97);
     align-self: flex-end;
+}
+
+.notifications-container .refresh-btn {
+    position: fixed;
+    bottom: 3%;
+    right: 5%;
+    cursor: pointer;
+    color: #fff;
+    font-size: calc(1.5rem + 2.5vmin);
+    background-color: rgb(6,43,16);
+    border-radius: 50%;
+    padding: .2rem .2rem .3rem;
+    box-shadow: 0px 1px 6px 1px #b7072d;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @media (min-width: 560px) {

@@ -122,7 +122,7 @@ const HomePage = () => {
                                             {computeDate(randomArticle.createdOn)}
                                         </span>
                                     </div>
-                                    <button className='share-btn'>Share</button>
+                                    <button className='share-btn' disabled={true}>Share</button>
                                 </div>
                                 <h1 className='post-title'>
                                     {randomArticle.title}

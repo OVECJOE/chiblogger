@@ -1,6 +1,6 @@
 import parse from 'html-react-parser';
 import { useContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { AiFillLike } from 'react-icons/ai';
 import { BiDownvote, BiUpvote } from 'react-icons/bi';
@@ -23,6 +23,7 @@ const BlogArticle = () => {
     const { userData } = useContext(UserContext);
     const { slugName } = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const [newArticle, setNewArticle] = useState(
         articles.filter(article => {
@@ -115,6 +116,10 @@ const BlogArticle = () => {
                 setComment({
                     type: '', title: '', content: ''
                 });
+                projectDispatcher({
+                    type: 'SET_MESSAGE',
+                    message: `You have added new comment to article with ID ${newArticle._id}`
+                });
             }).catch(err => {
                 erroneous(err, projectDispatcher);
             });
@@ -128,9 +133,17 @@ const BlogArticle = () => {
                 type: 'UPDATE_ARTICLE',
                 article: data
             });
+            projectDispatcher({
+                type: 'SET_MESSAGE',
+                message: `Comment with ID ${id} has been deleted successfully.`
+            });
         }).catch(err => {
             erroneous(err, projectDispatcher)
         });
+    };
+
+    const generateShareLink = () => {
+        console.log(location.pathname);
     };
 
     return (
@@ -153,7 +166,7 @@ const BlogArticle = () => {
                                 {computeDate(newArticle.createdOn)}
                             </span>
                         </div>
-                        <button className='share-btn'>Share</button>
+                        <button className='share-btn' onClick={generateShareLink}>Share</button>
                     </div>
                     <h1 className='post-title'>
                         {newArticle.title}

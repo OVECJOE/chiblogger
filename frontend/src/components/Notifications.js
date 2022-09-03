@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { HiRefresh } from 'react-icons/hi';
 import axios from 'axios';
 
 import { ProjectContext } from "../contexts/projectContext";
@@ -56,12 +57,27 @@ const Notifications = () => {
             });
             projectDispatcher({
                 type: 'SET_MESSAGE',
-                message: 'Successfully Deleted!'
+                message: `Successfully Deleted Notification with ID ${id}!`
             })
         }).catch(err => erroneous(err, projectDispatcher));
     };
 
     const handleClick = useSingleAndDoubleClick(singleClickCb, doubleClickCb, nId);
+    const refresh = () => {
+        axios.get('/api/notifications', config)
+        .then(res => {
+            notificationsDispatcher({
+                type: 'SAVE_ALL_NOTIFICATIONS',
+                notifications: res.data
+            });
+            projectDispatcher({
+                type: 'SET_MESSAGE',
+                message: 'Refreshed Successfully.'
+            });
+        }).catch(err => {
+            erroneous(err, projectDispatcher);
+        });
+    };
 
     useEffect(() => {
         switch (keyword) {
@@ -160,6 +176,9 @@ const Notifications = () => {
                         </span> notifications.
                     </p>
                 }
+            </div>
+            <div className='refresh-btn' onClick={refresh}>
+                <HiRefresh />
             </div>
         </section>
     );

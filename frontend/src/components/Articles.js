@@ -30,6 +30,10 @@ const Articles = () => {
                     type: 'STORE_ARTICLES',
                     articles: res.data
                 });
+                projectDispatcher({
+                    type: 'SET_MESSAGE',
+                    message: `Article with ID ${id} has been deleted.`
+                });
             }).catch(err => {
                 erroneous(err, projectDispatcher);
             });

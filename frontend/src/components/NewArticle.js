@@ -143,6 +143,10 @@ const NewArticle = () => {
                 });
 
                 editorRef.current.setContent('');
+                projectDispatcher({
+                    type: 'SET_MESSAGE',
+                    message: 'New article created successfully.'
+                });
                 navigate('/dashboard/articles');
             })
             .catch(err => {

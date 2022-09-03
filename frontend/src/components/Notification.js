@@ -42,7 +42,7 @@ const Notification = ({ token }) => {
             });
             projectDispatcher({
                 type: 'SET_MESSAGE',
-                message: 'Successfully Deleted!'
+                message: `Successfully Deleted Notification with ID ${id}!`
             })
             navigate(-1);
         }).catch(err => erroneous(err, projectDispatcher));
