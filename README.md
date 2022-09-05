@@ -6,7 +6,7 @@ This is a customized health fitness blogging application built for my favorite a
 - React
 - Context API
 - CSS
-- React Helmet (For SEO, not yet implemented)
+- React Helmet (For SEO)
 ### Backend
 - Nodejs
 - Expressjs
@@ -28,4 +28,4 @@ Some of what I learnt are:
 - Exploring different options for a solution saves a lot of time.
 
 ## [Video Demo](https://www.awesomescreenshot.com/video/10761891?key=db4060de9e578679f169e5b2dcafd168)
-Note that this video is not up to date. Some significant changes has been made after this video was made.
+Note that this video may not up to date. Some significant changes has been made after this video was made.
