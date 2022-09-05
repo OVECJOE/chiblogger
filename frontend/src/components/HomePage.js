@@ -72,11 +72,22 @@ const HomePage = () => {
                 <section className='hero-section'>
                     <div className="left-card">
                         <h2 className='title'>
-                            Everything about Health Fitness
+                            <span className='green-text'>CHI-Blogger</span> | 
+                            Everything about <span className='green-text'>
+                                Health Fitness
+                            </span>
                         </h2>
                         <article className='content'>
-                            Lorem Ipsum Is Simply Dummy Text
-                            Of The Printing And
+                            <p>
+                                Welcome<span className='red-text'>{userData?.username && ` ${userData.username}`}</span>!
+                                You are in the right place. <span className='red-text'>Health fitness</span> is our language here. Explore
+                                around, read our articles, and watch yourself grow healthwise!
+                            </p>
+                            <p className='tooltip'>
+                                Look above... The <span className='green-text'>Learn</span> tab takes you to a
+                                page where you can consume daily health fitness tips and advices to help you grow. The
+                                {' '}<span className='green-text'>About</span> tab gives you more insights about this platform.
+                            </p>
                         </article>
                     </div>
                     <div className='right-card'>
@@ -84,7 +95,9 @@ const HomePage = () => {
                             <img src={require('../assets/img-1.jpg')} alt='hero sample 1' />
                             <img src={require('../assets/img-3.jpg')} alt='hero sample 2' />
                         </div>
-                        <img src={require('../assets/img-2.jpg')} alt='hero sample 3' />
+                        <div className='right'>
+                            <img src={require('../assets/img-2.jpg')} alt='hero sample 3' />
+                        </div>
                     </div>
                 </section>
                 <section className='posts-container'>

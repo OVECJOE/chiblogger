@@ -5,21 +5,23 @@ import { notificationsReducer } from '../reducers/notificationsReducer';
 
 export const NotificationsContext = createContext();
 
-const NotificationsContextProvider = ({ children, token }) => {
+const NotificationsContextProvider = ({ children, user }) => {
     const [notifications, notificationsDispatcher] = useReducer(
-        notificationsReducer, []
+        notificationsReducer,
+        JSON.parse(localStorage.getItem('notifications')) || []
     );
 
     useEffect(() => {
-        axios.get('/api/notifications', {
+        user.isAdmin && axios.get('/api/notifications', {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${user.token}`
             }
         }).then(res => {
             notificationsDispatcher({
                 type: 'SAVE_ALL_NOTIFICATIONS',
                 notifications: res.data
             });
+            localStorage.setItem('notifications', JSON.stringify(notifications))
         }).catch(err => {
             alert(err.message);
         });

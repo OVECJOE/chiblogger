@@ -36,7 +36,7 @@ const Main = () => {
             <AuthContextProvider>
                 <Header />
             </AuthContextProvider>
-                <NotificationsContextProvider token={userData.token}>
+                <NotificationsContextProvider user={userData}>
                     <Routes>
                         <Route path='/' element={<HomePage />} />
                         <Route path='/learn' element={<LearnPage />} />

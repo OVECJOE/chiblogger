@@ -65,7 +65,7 @@
     color: #e61b48;
 }
 
-div input {
+.profile-info input {
     width: 100%;
     padding: .4rem;
     border: 1px solid #503245;

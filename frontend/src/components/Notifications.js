@@ -39,44 +39,46 @@ const Notifications = () => {
     const handleChange = (e) => setKeyword(e.target.value);
     const singleClickCb = (id) => {
         axios.put(`/api/notifications/${id}/view`, {}, config)
-        .then(res => {
-            notificationsDispatcher({
-                type: 'UPDATE_NOTIFICATION',
-                notification: res.data
-            });
-            navigate(`/dashboard/notifications/${id}`);
-        })
-        .catch(err => erroneous(err, projectDispatcher));
+            .then(res => {
+                notificationsDispatcher({
+                    type: 'UPDATE_NOTIFICATION',
+                    notification: res.data
+                });
+                navigate(`/dashboard/notifications/${id}`);
+            })
+            .catch(err => erroneous(err, projectDispatcher));
     };
     const doubleClickCb = (id) => {
         axios.delete(`/api/notifications/${id}`, config)
-        .then(res => {
-            notificationsDispatcher({
-                type: 'REMOVE_NOTIFICATION',
-                id: res.data._id
-            });
-            projectDispatcher({
-                type: 'SET_MESSAGE',
-                message: `Successfully Deleted Notification with ID ${id}!`
-            })
-        }).catch(err => erroneous(err, projectDispatcher));
+            .then(res => {
+                notificationsDispatcher({
+                    type: 'REMOVE_NOTIFICATION',
+                    id: res.data._id
+                });
+                projectDispatcher({
+                    type: 'SET_MESSAGE',
+                    message: `Successfully Deleted Notification with ID ${id}!`
+                })
+            }).catch(err => erroneous(err, projectDispatcher));
     };
 
     const handleClick = useSingleAndDoubleClick(singleClickCb, doubleClickCb, nId);
     const refresh = () => {
         axios.get('/api/notifications', config)
-        .then(res => {
-            notificationsDispatcher({
-                type: 'SAVE_ALL_NOTIFICATIONS',
-                notifications: res.data
+            .then(res => {
+                if (res.data.length !== notifications.length) {
+                    notificationsDispatcher({
+                        type: 'SAVE_ALL_NOTIFICATIONS',
+                        notifications: res.data
+                    });
+                    projectDispatcher({
+                        type: 'SET_MESSAGE',
+                        message: 'Refreshed Successfully.'
+                    });
+                }
+            }).catch(err => {
+                erroneous(err, projectDispatcher);
             });
-            projectDispatcher({
-                type: 'SET_MESSAGE',
-                message: 'Refreshed Successfully.'
-            });
-        }).catch(err => {
-            erroneous(err, projectDispatcher);
-        });
     };
 
     useEffect(() => {

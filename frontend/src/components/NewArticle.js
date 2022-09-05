@@ -177,7 +177,7 @@ const NewArticle = () => {
                         Save and Publish
                     </button>
                 </div>
-                <div className='article-title'>
+                <div className='article-title form-item'>
                     <label htmlFor='title'>Enter a unique article title:</label>
                     <input
                         type='text'
@@ -193,7 +193,7 @@ const NewArticle = () => {
                         Maximum length is <strong>255</strong>
                     </p>
                 </div>
-                <div className='article-slug'>
+                <div className='article-slug form-item'>
                     <label htmlFor='slug-name'>
                         Slug Name:
                     </label>
@@ -210,7 +210,7 @@ const NewArticle = () => {
                         <strong>Note: </strong>You cannot edit this, it is created automatically
                     </p>
                 </div>
-                <div className='article-image'>
+                <div className='article-image form-item'>
                     <label htmlFor='article-image'>
                         Select Pictures Relevant to this Article:
                     </label>

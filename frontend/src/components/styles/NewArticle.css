@@ -47,9 +47,16 @@
     font-size: calc(.55rem + 1vmin);
 }
 
+.article-metadata .form-item {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+}
+
 .article-metadata input {
     border: none;
-    box-shadow: inset -1px 0 1px 1px #e61b48;
+    box-shadow: inset 0px 1px 3px 1px #e61b48;
+    border-radius: 5px;
     padding: .7rem 0;
     text-indent: 10px;
 }

@@ -66,6 +66,7 @@
     margin: auto;
     font-size: calc(1.5rem + 2vmin);
     font-family: 'Poppins', sans-serif;
+    text-align: center;
     color: #222;
 }
 

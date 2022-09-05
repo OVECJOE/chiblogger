@@ -43,7 +43,6 @@ const Footer = () => {
 
         axios.post('/api/notifications', formData, config)
         .then(({ data }) => {
-            console.log(data);
             projectDispatcher({
                 type: 'SET_MESSAGE',
                 message: `${data.message} Ticket ID: ${data.notificationId}`

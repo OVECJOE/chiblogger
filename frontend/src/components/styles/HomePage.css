@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@400;500;600;700&family=Edu+VIC+WA+NT+Beginner:wght@400;600;700&family=Mochiy+Pop+P+One&family=Oswald:wght@400;500;600;700&family=Roboto+Condensed:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 .App__home {
     padding: 1rem 0;
@@ -20,7 +21,7 @@
     text-align: center;
     display: flex;
     flex-direction: column;
-    gap: .3rem;
+    gap: .6rem;
     color: #506b22;
     font-family: 'Mochiy Pop P One', sans-serif;
 }
@@ -30,8 +31,19 @@
     font-size: calc(15px + 2vmin);
 }
 
+.left-card .green-text {
+    color: #506b22;
+}
+
+.left-card .red-text {
+    color: #b7072d;
+}
+
 .left-card .content {
-    font-size: .7rem;
+    font-size: calc(.7rem + .5vmin);
+    color: rgb(34, 34, 34);
+    font-family: 'Work Sans', serif;
+    font-weight: 500;
 }
 
 .hero-section .right-card {
@@ -45,7 +57,11 @@
     display: flex;
     flex-direction: column;
     gap: .2rem;
-    width: 60%;
+    width: 50%;
+}
+
+.right-card .right {
+    width: 70%;
 }
 
 .right-card img {

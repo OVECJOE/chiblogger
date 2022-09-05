@@ -7,9 +7,6 @@
     right: 0;
     bottom: 0;
     background-color: #190308e0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     z-index: 20;
 }
 
@@ -29,9 +26,10 @@
     top: .5%;
     right: .5%;
     font-size: 2.5rem;
-    color: #fff;
+    color: #f89f05;
     cursor: pointer;
     transition: all 400ms ease;
+    z-index: 30;
 }
 
 .auth-form-container .cancel-btn:hover {
@@ -41,14 +39,14 @@
 
 .auth-form-container .auth-form {
     background-color: #fff;
-    padding: 1.2rem 2rem;
+    padding: 1.2rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     gap: 1.2rem;
     width: 80%;
-    border-radius: 10px;  
+    border-radius: 10px;
     font-family: 'Poppins', sans-serif;
+    margin: 4rem auto;
 }
 
 .auth-form .form-item {
@@ -63,9 +61,19 @@
     font-weight: 400;
 }
 
+.auth-form .form-item input {
+    color: #80021e;
+    padding: .5rem 0;
+    border-radius: 3px;
+    border: 1px solid #f89f05;
+    text-indent: 5px;
+}
+
 .auth-form h1 {
     font-size: calc(15px + 2vmin);
     color: #e61b47;
+    text-align: center;
+    font-weight: 900;
 }
 
 .auth-form button {
@@ -78,15 +86,12 @@
     border-radius: 5px;
     cursor: pointer;
     transition: all 300ms ease-out;
+    width: 100%;
 }
 
 .auth-form button:hover {
     background-color: #80021e;
     transition: all 300ms ease-in;
-}
-
-.auth-form .form-item input {
-    padding: .5rem;
 }
 
 .error-list {
