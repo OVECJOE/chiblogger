@@ -18,7 +18,7 @@ My aunt + my desire to build something that can be used by others was my inspira
 ## Challenges
 I had a lot of challenges, ranging from the how limited the device I was using is to time. I ran into many bugs during the early phase of development mostly because I didn't plan the project properly. Not my fault though. I planned the project life cycle, but my laptop disrupt the plan.
 
-I was using a 4GB, core i3, Dell laptop which was damn too slow to run React application during development, let alone using Nextjs and Sanity Studio (as I intended using).
+I was using a 4GB, core i3, Dell laptop which was damn too slow to run React application during development, let alone using Nextjs, Firebase, and Sanity Studio (as I intended using).
 
 ## Concepts Learnt
 Some of what I learnt are:
