@@ -38,7 +38,7 @@ const Article = ({ article, deleteArticle }) => {
         });
         setOptionToggle(false);
         setTimeout(() => {
-            navigate('/dashboard/new-article', { state: { edit: true } });
+            navigate('/dashboard/new-article', { state: { edit: true, id: article._id } });
         }, 1000);
     };
 
