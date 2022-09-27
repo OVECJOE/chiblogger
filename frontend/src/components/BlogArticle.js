@@ -127,19 +127,19 @@ const BlogArticle = () => {
 
     const delComment = (id) => {
         axios.delete(`/api/articles/${newArticle._id}/comments/${id}`,
-        config).then(({ data }) => {
-            setNewArticle(data);
-            articlesDispatcher({
-                type: 'UPDATE_ARTICLE',
-                article: data
+            config).then(({ data }) => {
+                setNewArticle(data);
+                articlesDispatcher({
+                    type: 'UPDATE_ARTICLE',
+                    article: data
+                });
+                projectDispatcher({
+                    type: 'SET_MESSAGE',
+                    message: `Comment with ID ${id} has been deleted successfully.`
+                });
+            }).catch(err => {
+                erroneous(err, projectDispatcher)
             });
-            projectDispatcher({
-                type: 'SET_MESSAGE',
-                message: `Comment with ID ${id} has been deleted successfully.`
-            });
-        }).catch(err => {
-            erroneous(err, projectDispatcher)
-        });
     };
 
     const generateShareLink = () => {
@@ -240,7 +240,7 @@ const BlogArticle = () => {
                                             <div className='red-line'></div>
                                             <p>{each.type}</p>
                                             <div className='red-line'></div>
-                                        </div> 
+                                        </div>
                                         <h4 className='comment-title'>{each.title || 'No Title'}</h4>
                                         <p className='comment-content'>
                                             {each.content}

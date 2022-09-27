@@ -38,10 +38,6 @@ const Article = ({ article, deleteArticle }) => {
         });
         setOptionToggle(false);
         setTimeout(() => {
-            projectDispatcher({
-                type: 'SET_MESSAGE',
-                message: `Changes made to article with ID ${article._id} has been saved.`
-            });
             navigate('/dashboard/new-article', { state: { edit: true } });
         }, 1000);
     };

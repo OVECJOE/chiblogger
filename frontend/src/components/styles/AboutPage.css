@@ -27,7 +27,7 @@
 }
 
 .hero-text .hero-title {
-    font-size: calc(1.2rem + 2vmin);
+    font-size: calc(1.5rem + 2.5vmin);
     font-weight: 900;
 }
 
@@ -59,32 +59,36 @@
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: space-between;
+    gap: 1.2rem;
+    justify-content: center;
 }
 
 .benefits-list .benefit-card {
     width: 250px;
-    min-height: 70px;
+    min-height: 6rem;
     display: flex;
     flex-direction: column;
     gap: .5rem;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     text-align: center;
 
     border: 1px solid #ac6474;
     color: #e61b48;
-    padding: .2rem;
+    /* padding: .2rem; */
     border-radius: 5px;
     font-size: calc(2rem + 2vmin);
 }
 
 .benefit-card .benefit {
-    font-size: calc(.5rem + 1vmin);
+    font-size: calc(.5rem + .8vmin);
 }
 
 @media (max-width: 700px) {
+    .about-page-container {
+        text-align: center;
+    }
+
     .about-page-container .hero-section {
         flex-wrap: wrap;
         padding: .5rem 0;
@@ -93,10 +97,6 @@
     .about-page-container .hero-text,
     .about-page-container .hero-image-box {
         width: 100%;
-    }
-
-    .hero-text .hero-title {
-        text-align: center;
     }
 
     .hero-image-box {
@@ -108,7 +108,7 @@
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 420px) {
     .benefits-list .benefit-card {
         width: 100%;
     }

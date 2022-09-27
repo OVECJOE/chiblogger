@@ -80,8 +80,24 @@
     gap: .5rem;
 }
 
-.article-premium .premium-read {
+.article-premium .premium-read,
+.article-premium {
     display: flex;
+}
+
+.article-premium .premium-read {
+    align-items: center;
+    gap: 1rem;
+}
+
+.premium-read input[type="checkbox"] {
+    height: 1.5em;
+    width: 1.5em;
+    font: inherit;
+    color: #135e0b;
+    border: 1em solid #e61b48;
+    transform: translateY(-0.075em);
+    box-shadow: none;
 }
 
 .article-metadata > h1 {

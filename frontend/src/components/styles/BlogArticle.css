@@ -15,7 +15,7 @@
     font-size: calc(1.2rem + 1.5vmin);
     font-family: cursive;
     font-weight: 700;
-    padding-left: .8rem;
+    padding: .4rem .8rem .2rem;
     
     position: -webkit-sticky;
     position: sticky;
@@ -64,6 +64,10 @@
     color: #65a000;
     font-style: normal;
     font-weight: 500;
+}
+
+.blog-article-container .article-photos {
+    box-shadow: 1px 1px 2px 2px #605107;
 }
 
 .funny-edit {

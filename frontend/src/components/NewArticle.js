@@ -60,17 +60,17 @@ const NewArticle = () => {
 
                 for (const file of files) {
                     uploadImage(file, articleDispatcher, projectDispatcher)
-                    .then(url => {
-                        setUploaded(prev => ({
-                            ...prev,
-                            file: {
-                                name: file.name,
-                                url
-                            }
-                        }));
-                    }).catch(err => {
-                        erroneous(err, projectDispatcher);
-                    });
+                        .then(url => {
+                            setUploaded(prev => ({
+                                ...prev,
+                                file: {
+                                    name: file.name,
+                                    url
+                                }
+                            }));
+                        }).catch(err => {
+                            erroneous(err, projectDispatcher);
+                        });
                 }
             }
 
@@ -143,10 +143,14 @@ const NewArticle = () => {
                 });
 
                 editorRef.current.setContent('');
-                projectDispatcher({
-                    type: 'SET_MESSAGE',
-                    message: 'New article created successfully.'
-                });
+                location.state.edit ?
+                    projectDispatcher({
+                        type: 'SET_MESSAGE',
+                        message: `Changes made to article with ID ${location.state.id} has been saved.`
+                    }) : projectDispatcher({
+                        type: 'SET_MESSAGE',
+                        message: 'New article created successfully.'
+                    });
                 navigate('/dashboard/articles');
             })
             .catch(err => {
@@ -224,8 +228,9 @@ const NewArticle = () => {
                     />
                     {uploaded.state ?
                         <div
-                            style={{ display: 'flex', 
-                                gap: '.5rem', 
+                            style={{
+                                display: 'flex',
+                                gap: '.5rem',
                                 alignItems: 'center',
                                 fontSize: '1.2rem',
                                 marginTop: '.4rem'
@@ -250,14 +255,14 @@ const NewArticle = () => {
                 </div>
                 <div className='article-premium'>
                     <div className='premium-read'>
-                        <label htmlFor='premium-read'>Is this Article a Premium Read?</label>
                         <input
                             type='checkbox'
                             name='premiumRead'
-                            id='premium-read'
+                            id='premium'
                             onChange={handleChange}
                             value={articleData.premiumRead}
                         />
+                        <label htmlFor='premium'>Is this Article a Premium Read?</label>
                     </div>
                     <p className='tooltip'>
                         A premium read article can only be accessible to premium users.
