@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FaHamburger } from 'react-icons/fa';
 
@@ -35,6 +35,23 @@ const Header = () => {
         navigate('/', { replace: true });
     };
 
+    useEffect(() => {
+        const checkbox = document.querySelector('#hamburger');
+        const icon = document.querySelector('#mobile-menu');
+        const listener = function (e) {
+            if (e.target != checkbox && e.target != icon) {
+                checkbox.checked = false;
+                document.removeEventListener('click', listener);
+            }
+        };
+
+        checkbox.addEventListener('click', function () {
+            if (this.checked) {
+                document.addEventListener('click', listener);
+            }
+        });
+    }, []);
+
     return (
         <header className='App__header'>
             {state.logoutMessage && <div className='logout-msg'>
@@ -52,8 +69,10 @@ const Header = () => {
             </h3>
             <nav>
                 <input type='checkbox' id='hamburger' />
-                <label htmlFor='hamburger' className='hamburger'>
-                    <span className='menu'>Menu</span><FaHamburger />
+                <label htmlFor='hamburger' className='hamburger' id='mobile-menu'
+                >
+                    <span className='menu'>Menu</span>
+                    <FaHamburger />
                 </label>
                 <ul className='App__header-navbar'>
                     <li>
