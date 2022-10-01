@@ -30,7 +30,7 @@ export const erroneous = (err, errDispatcher) => {
 };
 
 export const uploadImage = async (photo, dispatcher, errDispatcher) => {
-    const UPLOAD_URL = process.env.REACT_APP_UPLOAD_IMAGE_URL;
+    const UPLOAD_URL = 'https://api.cloudinary.com/v1_1/ovecjoe/image/upload';
     const data = new FormData();
 
     data.append('file', photo);
